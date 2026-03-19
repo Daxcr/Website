@@ -1,0 +1,220 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Daxcr | Projects";
+}
+
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=0.5">
+        <link rel="stylesheet" href="../css/site.css"/>
+    </head>
+    <body>
+        <div id="title"></div>
+        <div class="icon">
+            <div class="nav-item">
+                <a href="../" class="nav-link">
+                    <div class="nav-image">
+                        <img src="../socialicons/r.png" width="100">
+                    </div>
+                    <p>RETURN</p>
+                </a>
+            </div>
+        </div>
+        <div id="schmove">
+            <canvas class="glslCanvas"
+                data-fragment-url="../shaders/bg.frag"
+                data-vertex-url="../shaders/bg.vert">
+            </canvas>
+
+            <div class="gradient-overlay"></div>
+
+            <div id="navigation"></div>
+        </div>
+    </body>
+    <script>
+        document.addEventListener("click", e => {
+            const link = e.target.closest("a");
+            if (!link) return;
+            e.preventDefault();
+            document.getElementById("schmove").classList.add("fade-out");
+            document.getElementsByClassName("icon")[0].classList.add("fade-out");
+            setTimeout(() => {
+                window.location = link.href;
+                }, 2000);
+            });
+            window.addEventListener("pageshow", event => {
+            document.getElementById("schmove").classList.remove("fade-out");
+            document.getElementsByClassName("icon")[0].classList.remove("fade-out");
+        });
+    </script>
+    <script>
+        const title = document.getElementById("title");
+        let titleText = "Projects";
+        let random = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@@#$%^&*()_+-=[]{}|;':,.<>/?`~";
+        let index = 0;
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function animateTitle() {
+            for (let i = 0; i < 2; i++) {
+                title.textContent = `${titleText.substring(0, index)}${random.charAt(Math.floor(Math.random() * random.length))}`;
+                await sleep(20);
+            }
+            index += 1;
+            if (index < titleText.length) {
+                setTimeout(animateTitle, 5);
+            } else {
+                title.textContent = titleText;
+            }
+        }
+
+        _ = animateTitle();
+    </script>
+    <script src="../lib/glslCanvas.js"></script>
+    <script>
+        const canvas = document.querySelector(".glslCanvas");
+        const sandbox = new GlslCanvas(canvas);
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            sandbox.setUniform("u_resolution", canvas.width, canvas.height);
+        }
+
+        window.addEventListener("resize", resize);
+        
+        resize();
+
+        let startTime = Date.now();
+        let lastTimeShader = performance.now();
+
+        function animate() {
+
+            const now = Date.now();
+            const elapsed = (now - startTime) / 1000.0;
+
+            sandbox.setUniform("u_time", elapsed);
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+    <script>
+        let items = {
+            "Honeycomb": "honeycomb/",
+            "Celeste Mods": "celeste/",
+            "ULTRAHOOK": "ULTRAHOOK/",
+            "This Website :D": "this/",
+            "Shaders": "shaders/"
+        };
+        let itemImages = {
+            "Honeycomb": "honeycomb.png",
+            "Celeste Mods": "celeste.png",
+            "ULTRAHOOK": "v1.png",
+            "This Website :D": "gamedev.png",
+            "Shaders": "mcshd.png"
+        }
+        let objects = []
+        let container = document.getElementById("navigation");
+
+        function setup() {
+            let index = 0;
+            for (let key in items) {
+                if (items.hasOwnProperty(key)) {
+                    let div = document.createElement("div");
+                    let img = document.createElement("div");
+                    div.className = "nav-item";
+                    img.className = "nav-image";
+
+                    let p = document.createElement("p");
+                    let a = document.createElement("a");
+                    let icon = document.createElement("img");
+                    icon.src = `../socialicons/${itemImages[key]}`;
+                    icon.width = 100;
+                    //icon.className = "nav-icon";
+                    p.textContent = key;
+
+                    a.href = items[key];
+                    a.className = "nav-link";
+
+                    img.appendChild(icon);
+                    a.appendChild(img);
+                    a.appendChild(p);
+                    div.appendChild(a);
+
+                    container.appendChild(div);
+
+                    objects[index] = div;
+                    index += 1;
+                }
+            }
+        }
+        let lastTime = 0;
+        let spacing = 0;
+        let targetSpacing = 0;
+        let radius = 500;
+        let rotation = 0;
+        let speed = 0;
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function lerp(start, end, time) {
+            return start + (end - start) * time;
+        }
+
+        function loop(timestamp) {
+            let deltaTime = (timestamp - lastTime) / 1000;
+            lastTime = timestamp;
+
+            if (deltaTime > 0.2) {
+                deltaTime = 0.2;
+            }
+            
+            spacing = lerp(spacing, targetSpacing, deltaTime * speed);
+
+            speed += deltaTime * 2;
+            if (speed > 4){
+                speed = 4;
+            }
+
+            rotation += deltaTime / 9;
+
+            radius = window.innerWidth / 5.5;
+            if (radius < 300) {
+                radius = 300;
+            }
+
+            let centerX = window.innerWidth / 2;
+            let centerY = window.innerHeight / 2;
+
+            for (let i = 0; i < objects.length; i++) {
+                let angle = (spacing * i) + rotation;
+
+                let x = centerX + radius * Math.cos(angle) - objects[i].offsetWidth / 2;
+                let y = centerY + radius * Math.sin(angle) - objects[i].offsetHeight / 2;
+
+                objects[i].style.left = `${x}px`;
+                objects[i].style.top = `${y}px`;
+            }
+
+            requestAnimationFrame(loop);
+        }
+        
+        async function start() {
+            await sleep(300);
+            setup();
+            targetSpacing = (2 * Math.PI) / objects.length;
+            requestAnimationFrame(loop);
+        }
+        start();
+    </script>
+</html>

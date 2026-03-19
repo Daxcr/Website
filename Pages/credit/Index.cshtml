@@ -1,0 +1,128 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Daxcr | Website Credit";
+}
+
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=0.5">
+        <link rel="stylesheet" href="../css/site.css"/>
+        <style>
+            hr {
+                color: #ffffff2a;
+                max-width: 800px;
+                margin-left: 0;
+                margin-right: auto;
+            }
+            html, body {
+                overflow-y: scroll !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="title"></div> 
+        <div id="schmove">
+
+            <canvas class="glslCanvas"
+                data-fragment-url="../shaders/bg2.frag"
+                data-vertex-url="../shaders/bg.vert">
+            </canvas>
+
+            <div class="content">
+                <p>General Credit</p>
+                <p class="paragraph">Website created by Daxcr (me) using ASP.NET Core Razor Pages.</p>
+                <p class="paragraph">Background shader made with glslCanvas.</p>
+                <p class="paragraph">Credit to you too, since for some reason you're reading this. There's more interesting stuff on this website, go read that instead. :)</p><hr>
+                <p>Chud wall</p>
+                <p class="paragraph">Some individuals (vibe coders) said my old website sucks, so thanks to them this website has been revamped to the version you see today. Without them, I wouldn't have had the motivation to make a better one!</p><hr>
+                <div class="quote">
+                    <p class="paragraph"><i>"U have the worst website I have ever seen"</i></p>
+                    <p class="paragraph">On Instagram</p>
+                </div>
+                <div class="quote">
+                    <p class="paragraph"><i>"Why would I do something that takes 100x the time🤣🤣🤣"</i></p><hr>
+                    <p class="paragraph"><i>"And the site you have in your page is garbage😂😂😂 I could do that in 20 seconds with manus"</i></p>
+                    <p class="paragraph">On Instagram</p>
+                </div>
+                <p class="paragraph">I contemplated on revealing their usernames, however I decided not to because then I'll get sued.</p>
+                <br><br>
+            </div>
+
+            <div class="gradient-overlay"></div>
+        </div>
+    </body>
+    <script>
+        document.addEventListener("click", e => {
+            const link = e.target.closest("a");
+            if (!link) return;
+            e.preventDefault();
+            document.getElementById("schmove").classList.add("fade-out");
+            setTimeout(() => {
+                window.location = link.href;
+                }, 2000);
+            });
+            window.addEventListener("pageshow", event => {
+            document.getElementById("schmove").classList.remove("fade-out");
+        });
+    </script>
+    <script>
+        const title = document.getElementById("title");
+        let titleText = "Website Credit";
+        let random = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@@#$%^&*()_+-=[]{}|;':,.<>/?`~";
+        let index = 0;
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function animateTitle() {
+            for (let i = 0; i < 2; i++) {
+                title.textContent = `${titleText.substring(0, index)}${random.charAt(Math.floor(Math.random() * random.length))}`;
+                await sleep(20);
+            }
+            index += 1;
+            if (index < titleText.length) {
+                setTimeout(animateTitle, 5);
+            } else {
+                title.textContent = titleText;
+            }
+        }
+
+        _ = animateTitle();
+    </script>
+    <script src="../lib/glslCanvas.js"></script>
+    <script>
+        const canvas = document.querySelector(".glslCanvas");
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            sandbox.setUniform("u_resolution", canvas.width, canvas.height);
+        }
+
+        window.addEventListener("resize", resize);
+        
+        resize();
+
+        const sandbox = new GlslCanvas(canvas);
+
+        let startTime = Date.now();
+        let lastTimeShader = performance.now();
+
+        function animate() {
+
+            const now = Date.now();
+            const elapsed = (now - startTime) / 1000.0;
+
+            sandbox.setUniform("u_time", elapsed);
+
+            requestAnimationFrame(animate);
+        }
+
+        animate(); 
+    </script>
+</html>
