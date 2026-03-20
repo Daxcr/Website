@@ -87,6 +87,13 @@ html, body {
     z-index: 100;
     width: 60%;
 }
+@media (orientation: portrait) {
+    .content {
+        left: 5%;
+        width: 90%;
+        top: 300px;
+    }
+}
 .paragraph {
     font-size: 22px;
     color: #bebebe;

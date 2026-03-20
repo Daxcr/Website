@@ -11,7 +11,7 @@ void main() {
 
     vec3 colour = vec3(0.16);
 
-    if (barSize < uv.x && barSize < (1.0-uv.x)) {    
+    if ((barSize < uv.x && barSize < (1.0-uv.x)) || u_resolution.x < u_resolution.y) {
         float cellSize = 70.0;
 
         vec2 grid = floor(gl_FragCoord.xy / cellSize) * cellSize;
