@@ -217,6 +217,7 @@
     </script>
     <script>
         splash = document.getElementById("splash");
+        const now = new Date();
         randomMsg = [
             "Hello!",
             "Sitting in the corner",
@@ -248,6 +249,52 @@
             "No sign of intelligence anywhere...",
             "You're short."
         ]
+        if (now.getMonth() === 4 && now.getDate() === 9){
+            randomMsg = [
+                "Happy birthday to meeeee!",
+                "It's my birthday",
+                "Send me 5 billion dollars as a present pls",
+                "I'm one year closer to dying.",
+                "WOOOOOOOO!"
+            ]
+        }
+        if (now.getMonth() === 11 && now.getDate() === 25){
+            randomMsg = [
+                "Chrimas",
+                "So like, we don't get snow down here.",
+                "Santa and his big ass sack",
+                "I haven't seen Jak since late November.<br>Maybe Santa thought he was an elf.",
+                "Ts is NOT Halloween."
+            ]
+        }
+        if (now.getMonth() === 3 && now.getDate() === 1){
+            randomMsg = [
+                "grwtgnhwjrtgkwkjdfhgbjks",
+                "wawawa",
+                "hop on fort",
+                "blublublublublub",
+                "You da real April Fool!"
+            ]
+        }
+        if (now.getMonth() === 9 && now.getDate() === 31){
+            randomMsg = [
+                "boo",
+                "spooky scary",
+                "Daxcr was shot by Skeleton.",
+                "Kid knocked on my door saying sum \"Trick<br>or Treat\".",
+                "Ts IS Halloween twin 🥲"
+            ]
+        }
+        if (now.getMonth() === 0 && now.getDate() === 1){
+            randomMsg = [
+                "New year new me",
+                `Already fucked up ${now.getFullYear()}.<br>${now.getFullYear() + 1} gonna be my year fr.`,
+                "Babe there's cows outside...",
+                "Wake up! It's the first of the month!", 
+                "Cron must be excited."
+            ]
+        }
+
         splash.innerHTML = randomMsg[Math.floor(Math.random() * randomMsg.length)];
     </script>
 </html>

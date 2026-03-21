@@ -39,6 +39,18 @@ void main() {
         }
     } else {
         colour *= 0.6;
+
+        float time = u_time - 0.4;
+        if (time < 0.0){
+            time == 0.0;
+        }
+        float angleEase = 3.14159 - (2.0 * 3.14159) * (1.0 - exp(-time * 0.6));
+        float outlineSize = 0.1 + (1.0 - 0.1) * exp(-u_time * 0.5);
+
+        float angle = atan(centeredCoord.y, centeredCoord.x);
+        if (dist < circleSize * scale + (50.0 * outlineSize) && angle > angleEase) {
+            colour *= 0.8;
+        }
     }
 
     gl_FragColor = vec4(colour, 1.0);
