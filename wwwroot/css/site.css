@@ -1,13 +1,33 @@
+:root {
+    --bgColour: #181818;
+    --bgStrength: 0.1;
+    --textColour: #ffffff;
+    --subtextColour: #bebebe;
+    --splashColour: #777777;
+    --headingColour: #ffffff;
+    --itemColour: #303030;
+    --itemShineColour: #4e4e4e;
+    --itemOutline: #2b2b2b;
+    --itemShineOutline: #272727;
+    --iconImageBrightness: 1.0;
+    --titleShadow: #000000;
+    --contentShadow: #0000003a;
+    --crosshatchStrength: 0.3;
+    --quoteBackground: #0000009c;
+    --quoteOutline: #ffffff2a;
+    --quoteColour: #ffffff;
+}
+
 html {
     font-family: "Varela", sans-serif;
     font-size: 40px;
-    color: #ffffff;
+    color: var(--textColour);
 }
 html, body {
     height: 100%;
     margin: 0;
     overflow: hidden;
-    background-color: #181818;
+    background-color: var(--bgColour);
 }
 @keyframes fadeIn {
     from { transform: translateY(-120vh); }
@@ -37,7 +57,7 @@ html, body {
 }
 .nav-image {
     position: relative;
-    background: linear-gradient(to top right, #303030 0%,#303030 40%,#4e4e4e 50%,#303030 60%,#303030 100%);
+    background: linear-gradient(to top right, var(--itemColour) 0%,var(--itemColour) 40%,var(--itemShineColour) 50%,var(--itemColour) 60%,var(--itemColour) 100%);
     
     border-radius: 10px;
     box-shadow: 0 0 40px #0000003a;
@@ -52,22 +72,25 @@ html, body {
     align-items: center;
     justify-content: center;
 
-    outline: #2b2b2b 3px solid;
+    outline: var(--itemOutline) 3px solid;
 
     transition: border-radius 0.3s ease;
+}
+.nav-image img {
+    filter: brightness(var(--iconImageBrightness));
 }
 @keyframes shine {
     0% {
         filter: brightness(1);
-        outline: #2b2b2b 3px solid;
+        outline: var(--itemOutline) 3px solid;
     }
     50% {
         filter: brightness(1.2);
-        outline: #292929 4px solid;
+        outline: var(--itemOutline) 4px solid;
     }
     100% {
         filter: brightness(1);
-        outline: #272727 5px solid;
+        outline: var(--itemShineOutline) 5px solid;
     }
 }
 @keyframes gradient-move {
@@ -78,7 +101,7 @@ html, body {
 .nav-image:hover {
     animation: shine 1s ease, gradient-move 2s ease;
     border-radius: 12px;
-    outline: #272727 5px solid;
+    outline: var(--itemShineOutline) 5px solid;
 }
 .icon {
     position: absolute;
@@ -109,6 +132,7 @@ html, body {
     top: 0;
     width: 100vw;
     height: 100vh;
+    opacity: var(--bgStrength);
 }
 .content {
     position: absolute;
@@ -116,7 +140,7 @@ html, body {
     top: 200px;
     font-size: 48px;
     color: #d3d3d3;
-    text-shadow: 0 0 20px #0000003a;
+    text-shadow: 0 0 20px var(--titleShadow);
     z-index: 100;
     width: 60%;
 }
@@ -129,20 +153,20 @@ html, body {
 }
 .paragraph {
     font-size: 22px;
-    color: #bebebe;
+    color: var(--subtextColour);
     max-width: 800px;
 }
 a {
     text-decoration: none;
-    color: #ffffff;
+    color: var(--textColour);
 }
 #title {
     position: fixed;
     left: 30px;
     top: 30px;
     font-size: 64px;
-    color: #ffffff;
-    text-shadow: 0 0 20px #000000;
+    color: var(--textColour);
+    text-shadow: 0 0 20px var(--titleShadow);
     z-index: 10000;
 }
 #splash {
@@ -150,23 +174,52 @@ a {
     left: 30px;
     top: 130px;
     font-size: 32px;
-    color: #777777;
-    text-shadow: 0 0 20px #000000;
+    color: var(--splashColour);
+    text-shadow: 0 0 20px var(--titleShadow);
+    z-index: 10000;
+}
+#themeSwitcher {
+    position: fixed;
+    right: 30px;
+    top: 30px;
+    font-size: 24px;
+    color: var(--textColour);
+    z-index: 10000;
+    background-color: var(--itemColour);
+    border: 2px solid var(--itemOutline);
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    width: 200px;
+}
+
+label[for="themeSwitcher"] {
+    position: fixed;
+    right: 250px;
+    top: 38px;
+    font-size: 24px;
+    color: var(--subtextColour);
     z-index: 10000;
 }
 .quote {
-    background-color: #0000009c;
-    outline: 2px solid #ffffff2a;
+    background-color: var(--quoteBackground);
+    outline: 2px solid var(--quoteOutline);
     border-radius: 10px;
-    box-shadow: 0 0 40px #0000003a;
+    box-shadow: 0 0 40px var(--contentShadow);
     padding: 20px;
     max-width: 800px;
     margin-bottom: 30px;
 }
+.quote * {
+    color: var(--quoteColour) !important;
+}
+.heading {
+    color: var(--headingColour);
+}
 body::before {
     content: "";
     background-image: url("https://dax.hiveborn.digital/x.png");
-    opacity: 0.3;
+    opacity: var(--crosshatchStrength);
     z-index: 1;
     position: absolute;
     top: 0;
@@ -182,6 +235,8 @@ body::before {
     mask-image: linear-gradient(to bottom, #000000ff, #00000000 60%);
     mask-repeat: no-repeat;
     mask-size: 100% 100%;
+
+    pointer-events: none;
 }
 
 .gradient-overlay {
@@ -193,5 +248,5 @@ body::before {
     z-index: 0;
     pointer-events: none;
 
-    background-image: linear-gradient(180deg, #181818ff, #18181800 10%, #18181800 90%, #181818ff 100%);
+    background-image: linear-gradient(180deg, var(--bgColour), #00000000 10%, #00000000 90%, var(--bgColour) 100%);
 }

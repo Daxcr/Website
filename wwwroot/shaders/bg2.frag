@@ -9,9 +9,11 @@ void main() {
     vec2 uv = gl_FragCoord.xy / u_resolution;
     float barSize = 0.16 + (0.0 - 0.16) * exp(-u_time * 0.5);
 
-    vec3 colour = vec3(0.16);
+    float brightness = 0.0;
 
     if ((barSize < uv.x && barSize < (1.0-uv.x)) || u_resolution.x < u_resolution.y) {
+        brightness = 0.06;
+
         float cellSize = 70.0;
 
         vec2 grid = floor(gl_FragCoord.xy / cellSize) * cellSize;
@@ -23,14 +25,14 @@ void main() {
         float radius = cellSize * 0.5 * (0.5 + 0.5 * sin((grid.x / 300.0) + u_time));
 
         if (d > radius) {
-            colour -= 0.02;
+            brightness -= 0.02;
         }
         if (d < radius + 2.0) {
-            colour -= 0.03;
+            brightness -= 0.03;
         }
-    } else {
-        colour *= 0.6;
     }
 
-    gl_FragColor = vec4(colour, 1.0);
+    brightness *= 12.0;
+
+    gl_FragColor = vec4(vec3(brightness), brightness);
 }

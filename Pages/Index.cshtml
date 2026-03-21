@@ -15,6 +15,19 @@
     <body>
         <div id="title"></div> 
         <div id="splash"></div> 
+
+        <div style="z-index: 99999;">
+            <label for="themeSwitcher">Theme</label>
+            <select id="themeSwitcher" name="themeSwitcher">
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+                <option value="midnight">Midnight</option>
+                <option value="seaside">Seaside</option>
+                <option value="gilded">Gilded</option>
+                <option value="highcontrast">High Contrast</option>
+            </select>
+        </div>
+
         <div class="icon">
             <img src="icon.png" width="250px"></img>
         </div>
@@ -297,4 +310,5 @@
 
         splash.innerHTML = randomMsg[Math.floor(Math.random() * randomMsg.length)];
     </script>
+    <script src="themeSwapper.js"></script>
 </html>
