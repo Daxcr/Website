@@ -209,8 +209,8 @@
                 radius = 300;
             }
 
-            let centerX = window.innerWidth / 2;
-            let centerY = window.innerHeight / 2;
+            let centerX = document.documentElement.clientWidth / 2;
+            let centerY = document.documentElement.clientHeight / 2;
 
             for (let i = 0; i < objects.length; i++) {
                 let angle = (spacing * i) + rotation;
