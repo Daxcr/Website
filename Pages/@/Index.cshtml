@@ -39,6 +39,7 @@
         document.addEventListener("click", e => {
             const link = e.target.closest("a");
             if (!link) return;
+            if (link.href.startsWith("mailto")) return;
             e.preventDefault();
             document.getElementById("schmove").classList.add("fade-out");
             document.getElementsByClassName("icon")[0].classList.add("fade-out");
@@ -113,7 +114,9 @@
             "YouTube": "https://www.youtube.com/@@daxcrdev",
             "X/Twitter": "https://x.com/daxcr_",
             "Steam": "https://steamcommunity.com/id/Daxcr",
-            "GitHub": "https://github.com/Daxcr"
+            "GitHub": "https://github.com/Daxcr",
+            "Bluesky": "https://bsky.app/profile/dax.cr",
+            "Email": "mailto:daxcr@@dax.cr"
         };
         let itemImages = {
             "Discord": "dsc.png",
@@ -121,7 +124,9 @@
             "YouTube": "yt.png",
             "X/Twitter": "x.png",
             "Steam": "steam.png",
-            "GitHub": "github.png"
+            "GitHub": "github.png",
+            "Bluesky": "bsky.png",
+            "Email": "gmail.png"
         }
         let objects = []
         let container = document.getElementById("navigation");

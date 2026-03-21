@@ -94,6 +94,82 @@ const themes = {
         "--quoteOutline": "#ffae00",
         "--quoteColour": "#c5a081"
     },
+    "simulation": {
+        "--bgColour": "#c3d4d4",
+        "--bgStrength": "0.76",
+        "--textColour": "#1281c2",
+        "--subtextColour": "#000000",
+        "--splashColour": "#214992",
+        "--headingColour": "#5196f0",
+        "--itemColour": "#e6ffff",
+        "--itemShineColour": "#9affff",
+        "--itemOutline": "#00ffff",
+        "--itemShineOutline": "#00a2ff",
+        "--iconImageBrightness": 0.2,
+        "--titleShadow": "#0000004a",
+        "--contentShadow": "#00000023",
+        "--crosshatchStrength": "0.05",
+        "--quoteBackground": "#a3cfe0",
+        "--quoteOutline": "#00000000",
+        "--quoteColour": "#000000"
+    },
+    "simulation-dark": {
+        "--bgColour": "#101111",
+        "--bgStrength": "0.1",
+        "--textColour": "#c7f2ff",
+        "--subtextColour": "#ffffff",
+        "--splashColour": "#bcefff",
+        "--headingColour": "#5196f0",
+        "--itemColour": "#141d1d",
+        "--itemShineColour": "#134242",
+        "--itemOutline": "#00ffff",
+        "--itemShineOutline": "#00a2ff",
+        "--iconImageBrightness": 1.0,
+        "--titleShadow": "#0000004a",
+        "--contentShadow": "#00000023",
+        "--crosshatchStrength": "0.05",
+        "--quoteBackground": "#0000004a",
+        "--quoteOutline": "#a3cfe0",
+        "--quoteColour": "#ffffff"
+    },
+    "ocean": {
+        "--bgColour": "#163655",
+        "--bgStrength": "0.12",
+        "--textColour": "#ffffff",
+        "--subtextColour": "#ffffff",
+        "--splashColour": "#bcefff",
+        "--headingColour": "#5196f0",
+        "--itemColour": "#317a9c",
+        "--itemShineColour": "#4396bd",
+        "--itemOutline": "#00000000",
+        "--itemShineOutline": "#00000000",
+        "--iconImageBrightness": 1.0,
+        "--titleShadow": "#00000031",
+        "--contentShadow": "#00000000",
+        "--crosshatchStrength": "0.05",
+        "--quoteBackground": "#142a52",
+        "--quoteOutline": "#00000000",
+        "--quoteColour": "#ffffff"
+    },
+    "ember": {
+        "--bgColour": "#160c0c",
+        "--bgStrength": "0.07",
+        "--textColour": "#e69346",
+        "--subtextColour": "#fff0c5",
+        "--splashColour": "#ffd993",
+        "--headingColour": "#e97426",
+        "--itemColour": "#2e100e",
+        "--itemShineColour": "#85382e",
+        "--itemOutline": "#e2953c",
+        "--itemShineOutline": "#ec5b17",
+        "--iconImageBrightness": 1.0,
+        "--titleShadow": "#00000031",
+        "--contentShadow": "#00000000",
+        "--crosshatchStrength": "0.2",
+        "--quoteBackground": "#2e100e",
+        "--quoteOutline": "#e2953c",
+        "--quoteColour": "#ffffff"
+    },
     "highcontrast": {
         "--bgColour": "#000000",
         "--bgStrength": "0",
@@ -117,6 +193,7 @@ const themes = {
 
 theme = localStorage.getItem("theme") ?? "dark"
 const root = document.documentElement;
+
 for (const [key, val] of Object.entries(themes[theme])) {
     root.style.setProperty(key, val);
 }
@@ -124,8 +201,10 @@ for (const [key, val] of Object.entries(themes[theme])) {
 const switcher = document.getElementById("themeSwitcher");
 if (switcher) {
     switcher.value = theme;
+
     switcher.addEventListener("change", function() {
         const theme = themes[this.value];
+
         for (const [key, val] of Object.entries(theme)) {
             root.style.setProperty(key, val);
         }
