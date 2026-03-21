@@ -170,6 +170,25 @@ const themes = {
         "--quoteOutline": "#e2953c",
         "--quoteColour": "#ffffff"
     },
+    "soft": {
+        "--bgColour": "#2d2841",
+        "--bgStrength": "0.08",
+        "--textColour": "#d8a497",
+        "--subtextColour": "#ffddd4",
+        "--splashColour": "#ffb293",
+        "--headingColour": "#ffcf69",
+        "--itemColour": "#693f6d",
+        "--itemShineColour": "#87508b",
+        "--itemOutline": "#00000000",
+        "--itemShineOutline": "#00000000",
+        "--iconImageBrightness": 1.0,
+        "--titleShadow": "#00000000",
+        "--contentShadow": "#00000000",
+        "--crosshatchStrength": "0.0",
+        "--quoteBackground": "#693f6d",
+        "--quoteOutline": "#00000000",
+        "--quoteColour": "#ffffff"
+    },
     "highcontrast": {
         "--bgColour": "#000000",
         "--bgStrength": "0",
