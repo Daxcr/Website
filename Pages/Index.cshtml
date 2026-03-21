@@ -14,6 +14,7 @@
     </head>
     <body>
         <div id="title"></div> 
+        <div id="splash"></div> 
         <div class="icon">
             <img src="icon.png" width="250px"></img>
         </div>
@@ -213,5 +214,28 @@
             requestAnimationFrame(loop);
         }
         start();
+    </script>
+    <script>
+        splash = document.getElementById("splash");
+        randomMsg = [
+            "Hello!",
+            "Sitting in the corner",
+            "haha, I am Peter and I am green",
+            "This website is sponsored by your mother.",
+            "Frogeline!",
+            "Go get a job",
+            "// TODO: go fishing",
+            "This is splash text.",
+            "Dax says hi!",
+            "The domain dax.cr only costed me $160nzd.",
+            "No secrets here!",
+            "\"Professional website\"",
+            "This website is great. It's the greatest<br>website I've ever seen, really. I've never<br>seen a better website.",
+            "Delusional!",
+            "fih 💔",
+            "Watching Instagram Reels and driving feels<br>illegal.",
+            "Wow"
+        ]
+        splash.innerHTML = randomMsg[Math.floor(Math.random() * randomMsg.length)];
     </script>
 </html>
