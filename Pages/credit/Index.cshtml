@@ -64,10 +64,15 @@
             </div>
         </div>
     </body>
-    <script>
+        <script>
         document.addEventListener("click", e => {
             const link = e.target.closest("a");
             if (!link) return;
+
+            const audio = new Audio("../audio/click.wav");
+            audio.volume = 0.1;
+            audio.play();
+
             e.preventDefault();
             document.getElementById("schmove").classList.add("fade-out");
             setTimeout(() => {
