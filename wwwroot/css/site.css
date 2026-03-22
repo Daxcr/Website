@@ -150,11 +150,17 @@ html, body {
         width: 90%;
         top: 300px;
     }
+    .paragraph {
+        max-width: 800px !important;
+    }
+    .side-image {
+        opacity: 0;
+    }
 }
 .paragraph {
     font-size: 22px;
     color: var(--subtextColour);
-    max-width: 800px;
+    max-width: min(800px, 65%);
 }
 a {
     text-decoration: none;
@@ -249,4 +255,18 @@ body::before {
     pointer-events: none;
 
     background-image: linear-gradient(180deg, var(--bgColour), #00000000 10%, #00000000 90%, var(--bgColour) 100%);
+}
+.side-image {
+    position: absolute;
+    left: min(70%, 900px);
+    width: 35%;
+    outline: #ffffff 2px solid;
+    border-radius: 10px;
+    box-shadow: 0 0 30px #000000a6;
+}
+.inline-image {
+    max-width: min(80%, 700px);
+    outline: #ffffff 2px solid;
+    border-radius: 10px;
+    box-shadow: 0 0 30px #000000a6;
 }

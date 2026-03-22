@@ -11,6 +11,17 @@
         <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=0.5">
         <link rel="stylesheet" href="../css/site.css"/>
+        <style>
+            hr {
+                color: #ffffff2a;
+                max-width: 800px;
+                margin-left: 0;
+                margin-right: auto;
+            }
+            html, body {
+                overflow-y: scroll !important;
+            }
+        </style>
     </head>
     <body>
         <div id="title"></div> 
@@ -22,9 +33,18 @@
 
             <div class="content">
                 <p class="heading">About me</p>
+                <img class="side-image" src="../img/funny.png"/>
+                <img class="side-image" style="margin-top: 43%;" src="../img/funny2electricboogaloo.png"/>
                 <p class="paragraph">Hi! My name is Dax. I go by "Daxcr", "Daxcore", or just "Dax" online.</p>
                 <p class="paragraph">I'm interested in computers and a plethora of other things (lie). I'm working on a game engine called Honeycomb. You can find it on my Github.</p>
-                <p class="paragraph">You can use the socials on this website to reach me.</p>
+                <p class="paragraph">Right now I'm focused on learning more about .NET, Python (more specifically the Ursina game engine), Discord bot development, and shaders.</p>
+                <p class="paragraph">You can contact me on Discord (@@daxcr) or via email (daxcr@@dax.cr). You may also use other socials mentioned on this website <a href="../@@" style="text-decoration: underline;">HERE</a> to reach me.</p>
+                <p class="heading">More information</p>
+                <p class="paragraph" id="age"></p>
+                <p class="paragraph">Country of residence: New Zealand.</p>
+                <p class="paragraph">My cat: Slightly overweight. Image for reference.</p>
+                <img class="inline-image" src="../img/cat.png"/>
+                <p class="paragraph">He's a piece of shit, this cat. I swear he's a Russian spy trying to kill me.</p><br><br>
             </div>
 
             <div class="gradient-overlay"></div>
@@ -117,4 +137,13 @@
         animate(); 
     </script>
     <script src="../themeSwapper.js"></script>
+    <script>
+        const age = document.getElementById("age");
+
+        const start = new Date(2008, 4, 9);
+        const today = new Date();
+        const years = (today - start) / (1000 * 60 * 60 * 24 * 365.25);
+
+        age.innerHTML = `According to your system clock, I am ${Math.floor(years)} years old. Since the expected lifespan of a human male in New Zealand is approximately 80.2 years, I am ${(years / 80.2 * 100).toFixed(3)}% through my life.`
+    </script>
 </html>
