@@ -13,7 +13,7 @@ const themes = {
         "--iconImageBrightness": 1.0,
         "--titleShadow": "#000000",
         "--contentShadow": "#0000003a",
-        "--crosshatchStrength": "0.3",
+        "--crosshatchStrength": "0.075",
         "--quoteBackground": "#0000009c",
         "--quoteOutline": "#ffffff2a",
         "--quoteColour": "#ffffff"
@@ -32,7 +32,7 @@ const themes = {
         "--iconImageBrightness": 0.0,
         "--titleShadow": "#0000006a",
         "--contentShadow": "#00000019",
-        "--crosshatchStrength": "0.1",
+        "--crosshatchStrength": "0.025",
         "--quoteBackground": "#ffffff9c",
         "--quoteOutline": "#0000002a",
         "--quoteColour": "#000000"
@@ -51,7 +51,7 @@ const themes = {
         "--iconImageBrightness": 1.0,
         "--titleShadow": "#000000",
         "--contentShadow": "#0000003a",
-        "--crosshatchStrength": "0.6",
+        "--crosshatchStrength": "0.15",
         "--quoteBackground": "#0000009c",
         "--quoteOutline": "#ffffff2a",
         "--quoteColour": "#ffffff"
@@ -70,7 +70,7 @@ const themes = {
         "--iconImageBrightness": 0.0,
         "--titleShadow": "#000833",
         "--contentShadow": "#00000000",
-        "--crosshatchStrength": "0.1",
+        "--crosshatchStrength": "0.025",
         "--quoteBackground": "#4d91a1",
         "--quoteOutline": "#ffffff00",
         "--quoteColour": "#ffffff"
@@ -89,7 +89,7 @@ const themes = {
         "--iconImageBrightness": 1.0,
         "--titleShadow": "#000000",
         "--contentShadow": "#00000083",
-        "--crosshatchStrength": "0.3",
+        "--crosshatchStrength": "0.075",
         "--quoteBackground": "#0000009c",
         "--quoteOutline": "#ffae00",
         "--quoteColour": "#c5a081"
@@ -108,7 +108,7 @@ const themes = {
         "--iconImageBrightness": 0.2,
         "--titleShadow": "#0000004a",
         "--contentShadow": "#00000023",
-        "--crosshatchStrength": "0.05",
+        "--crosshatchStrength": "0.0125",
         "--quoteBackground": "#a3cfe0",
         "--quoteOutline": "#00000000",
         "--quoteColour": "#000000"
@@ -127,7 +127,7 @@ const themes = {
         "--iconImageBrightness": 1.0,
         "--titleShadow": "#0000004a",
         "--contentShadow": "#00000023",
-        "--crosshatchStrength": "0.05",
+        "--crosshatchStrength": "0.0125",
         "--quoteBackground": "#0000004a",
         "--quoteOutline": "#a3cfe0",
         "--quoteColour": "#ffffff"
@@ -146,7 +146,7 @@ const themes = {
         "--iconImageBrightness": 1.0,
         "--titleShadow": "#00000031",
         "--contentShadow": "#00000000",
-        "--crosshatchStrength": "0.05",
+        "--crosshatchStrength": "0.0125",
         "--quoteBackground": "#142a52",
         "--quoteOutline": "#00000000",
         "--quoteColour": "#ffffff"
@@ -165,7 +165,7 @@ const themes = {
         "--iconImageBrightness": 1.0,
         "--titleShadow": "#00000031",
         "--contentShadow": "#00000000",
-        "--crosshatchStrength": "0.2",
+        "--crosshatchStrength": "0.05",
         "--quoteBackground": "#2e100e",
         "--quoteOutline": "#e2953c",
         "--quoteColour": "#ffffff"
@@ -210,23 +210,34 @@ const themes = {
     }
 };
 
-theme = localStorage.getItem("theme") ?? "dark"
 const root = document.documentElement;
+const mframe = document.getElementById("frame");
 
-for (const [key, val] of Object.entries(themes[theme])) {
-    root.style.setProperty(key, val);
+function applyTheme(themeName) {
+    const theme = themes[themeName];
+    for (const [key, val] of Object.entries(theme)) {
+        root.style.setProperty(key, val);
+    }
+    mframe?.contentWindow?.postMessage({
+        type: "theme", theme: theme
+    }, "*");
+    localStorage.setItem("theme", themeName);
 }
+
+let themeName = localStorage.getItem("theme") ?? "dark";
+applyTheme(themeName);
+
+mframe?.addEventListener("load", function() {
+    mframe.contentWindow?.postMessage({
+        type: "theme", theme: themes[themeName]
+    }, "*");
+});
 
 const switcher = document.getElementById("themeSwitcher");
 if (switcher) {
-    switcher.value = theme;
-
+    switcher.value = themeName;
     switcher.addEventListener("change", function() {
-        const theme = themes[this.value];
-
-        for (const [key, val] of Object.entries(theme)) {
-            root.style.setProperty(key, val);
-        }
-        localStorage.setItem("theme", this.value);
+        themeName = this.value;
+        applyTheme(themeName);
     });
 }

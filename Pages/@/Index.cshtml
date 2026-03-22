@@ -16,7 +16,7 @@
         <div id="title"></div>
         <div class="icon">
             <div class="nav-item">
-                <a href="../" class="nav-link">
+                <a href="../home" class="nav-link">
                     <div class="nav-image">
                         <img src="../socialicons/r.png" width="100">
                     </div>
@@ -35,7 +35,12 @@
             <div id="navigation"></div>
         </div>
     </body>
-        <script>
+    <script>
+        if (window.self === window.top) {
+            window.location.replace("/?path=" + window.location.pathname);
+        }
+    </script>
+    <script>
         document.addEventListener("click", e => {
             const link = e.target.closest("a");
             if (!link) return;
@@ -154,8 +159,14 @@
                     //icon.className = "nav-icon";
                     p.textContent = key;
 
-                    a.href = items[key];
+                    a.location = items[key];
+                    a.target = "_top";
                     a.className = "nav-link";
+
+                    a.addEventListener("click", function(event) {
+                        event.preventDefault();
+                        window.open(this.location, "_top", "noreferrer");
+                    });
 
                     img.appendChild(icon);
                     a.appendChild(img);
@@ -231,4 +242,13 @@
         start();
     </script>
     <script src="../themeSwapper.js"></script>
+    <script>
+        window.addEventListener("message", function(event) {
+            if (event.data?.type === "theme") {
+                for (const [key, val] of Object.entries(event.data.theme)) {
+                    document.documentElement.style.setProperty(key, val);
+                }
+            }
+        });
+    </script>
 </html>

@@ -52,7 +52,7 @@
 
         <div style="position: fixed; left: 40px; top: 130px; z-index: 99999;">
             <div class="nav-item">
-                <a href="../" class="nav-link">
+                <a href="../home" class="nav-link">
                     <div class="nav-image">
                         <img src="../socialicons/r.png" width="100">
                     </div>
@@ -61,7 +61,12 @@
             </div>
         </div>
     </body>
-        <script>
+    <script>
+        if (window.self === window.top) {
+            window.location.replace("/?path=" + window.location.pathname);
+        }
+    </script>
+    <script>
         document.addEventListener("click", e => {
             const link = e.target.closest("a");
             if (!link) return;
@@ -145,5 +150,14 @@
         const years = (today - start) / (1000 * 60 * 60 * 24 * 365.25);
 
         age.innerHTML = `According to your system clock, I am ${Math.floor(years)} years old. Since the expected lifespan of a human male in New Zealand is approximately 80.2 years, I am ${(years / 80.2 * 100).toFixed(3)}% through my life.`
+    </script>
+    <script>
+        window.addEventListener("message", function(event) {
+            if (event.data?.type === "theme") {
+                for (const [key, val] of Object.entries(event.data.theme)) {
+                    document.documentElement.style.setProperty(key, val);
+                }
+            }
+        });
     </script>
 </html>

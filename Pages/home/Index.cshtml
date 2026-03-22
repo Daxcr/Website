@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Daxcr | Projects";
+    ViewData["Title"] = "Daxcr";
 }
 
 <html>
@@ -13,16 +13,11 @@
         <link rel="stylesheet" href="../css/site.css"/>
     </head>
     <body>
-        <div id="title"></div>
+        <div id="title"></div> 
+        <div id="splash"></div> 
+
         <div class="icon">
-            <div class="nav-item">
-                <a href="../home" class="nav-link">
-                    <div class="nav-image">
-                        <img src="../socialicons/r.png" width="100">
-                    </div>
-                    <p>RETURN</p>
-                </a>
-            </div>
+            <img src="icon.png" width="250px"></img>
         </div>
         <div id="schmove">
             <canvas class="glslCanvas"
@@ -63,7 +58,7 @@
     </script>
     <script>
         const title = document.getElementById("title");
-        let titleText = "Projects";
+        let titleText = "Hello, World!";
         let random = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@@#$%^&*()_+-=[]{}|;':,.<>/?`~";
         let index = 0;
 
@@ -86,7 +81,7 @@
 
         _ = animateTitle();
     </script>
-    <script src="../lib/glslCanvas.js"></script>
+    <script src="lib/glslCanvas.js"></script>
     <script>
         const canvas = document.querySelector(".glslCanvas");
         const sandbox = new GlslCanvas(canvas);
@@ -114,21 +109,26 @@
             requestAnimationFrame(animate);
         }
 
-        animate();
+        animate(); 
     </script>
     <script>
         let items = {
-            "Honeycomb": "https://github.com/Hiveborn-Digital/Honeycomb",
-            "Celeste Mods": "https://gamebanana.com/members/2729693",
-            "Weaponry API": "https://github.com/Daxcr/WeaponryAPI",
-            "ULTRAHOOK": "https://github.com/Daxcr/ULTRAHOOk",
-            "This Website :D": "https://github.com/Daxcr/Website"
+            "Extended Bio": "../bio/",
+            "Projects": "../projects/",
+            "Socials": "../@@/",
+            "Archive": "../archive/",
+            "Statistics": "../stats/",
+            "Credit": "../credit/",
+            "Hiveborn Digital": "https://hiveborn.digital/"
         };
         let itemImages = {
-            "Honeycomb": "honeycomb.png",
-            "Celeste Mods": "celeste.png",
-            "ULTRAHOOK": "v1.png",
-            "This Website :D": "gamedev.png"
+            "Extended Bio": "blog.png",
+            "Projects": "gamedev.png",
+            "Socials": "insta.png",
+            "Archive": "download.png",
+            "Statistics": "stonks.png",
+            "Credit": "misc.png",
+            "Hiveborn Digital": "hbd.png"
         }
         let objects = []
         let container = document.getElementById("navigation");
@@ -150,14 +150,18 @@
                     //icon.className = "nav-icon";
                     p.textContent = key;
 
-                    a.location = items[key];
-                    a.target = "_top";
+                    if (items[key] === "https://hiveborn.digital"){
+                        a.location = items[key];
+
+                        a.addEventListener("click", function(event) {
+                            event.preventDefault();
+                            window.open(this.location, "_top", "noreferrer");
+                        });
+                    } else {
+                        a.href = items[key];
+                    }
                     a.className = "nav-link";
 
-                    a.addEventListener("click", function(event) {
-                        event.preventDefault();
-                        window.open(this.location, "_top", "noreferrer");
-                    });
                     img.appendChild(icon);
                     a.appendChild(img);
                     a.appendChild(p);
@@ -230,6 +234,88 @@
             requestAnimationFrame(loop);
         }
         start();
+    </script>
+    <script>
+        splash = document.getElementById("splash");
+        const now = new Date();
+        randomMsg = [
+            "Hello!",
+            "Sitting in the corner",
+            "haha, I am Peter and I am green",
+            "This website is sponsored by your mother.",
+            "Frogeline!",
+            "Go get a job",
+            "// TODO: go fishing",
+            "This is splash text.",
+            "Dax says hi!",
+            "imma dax your cr",
+            "No secrets here!",
+            "\"Professional website\"",
+            "This website is great. It's the greatest<br>website I've ever seen, really. I've never<br>seen a better website.",
+            "Delusional!",
+            "fih 💔",
+            "Watching Instagram Reels and driving feels<br>illegal.",
+            "Wow",
+            "message.txt",
+            "John, get the hummus",
+            "Is this on?",
+            "Good morning, afternoon, evening, night,<br>whatever",
+            "I ran out of beer.",
+            "Can I flex my email? It's daxcr@@dax.cr",
+            "Correct!",
+            "This is a website.",
+            "Dax forgets to say hi.",
+            "Flint and steel!",
+            "No sign of intelligence anywhere...",
+            "You're short."
+        ]
+        if (now.getMonth() === 4 && now.getDate() === 9){
+            randomMsg = [
+                "Happy birthday to meeeee!",
+                "It's my birthday",
+                "Send me 5 billion dollars as a present pls",
+                "I'm one year closer to dying.",
+                "WOOOOOOOO!"
+            ]
+        }
+        if (now.getMonth() === 11 && now.getDate() === 25){
+            randomMsg = [
+                "Chrimas",
+                "So like, we don't get snow down here.",
+                "Santa and his big ass sack",
+                "I haven't seen Jak since late November.<br>Maybe Santa thought he was an elf.",
+                "Ts is NOT Halloween."
+            ]
+        }
+        if (now.getMonth() === 3 && now.getDate() === 1){
+            randomMsg = [
+                "grwtgnhwjrtgkwkjdfhgbjks",
+                "wawawa",
+                "hop on fort",
+                "blublublublublub",
+                "You da real April Fool!"
+            ]
+        }
+        if (now.getMonth() === 9 && now.getDate() === 31){
+            randomMsg = [
+                "boo",
+                "spooky scary",
+                "Daxcr was shot by Skeleton.",
+                "Kid knocked on my door saying sum \"Trick<br>or Treat\".",
+                "Ts IS Halloween twin 🥲"
+            ]
+        }
+        if (now.getMonth() === 0 && now.getDate() === 1){
+            randomMsg = [
+                "New year new me",
+                `Already fucked up ${now.getFullYear()}.<br>${now.getFullYear() + 1} gonna be my year fr.`,
+                "Babe there's cows outside...",
+                "Wake up! It's the first of the month!", 
+                "Cron must be excited."
+            ]
+        }
+
+        splash.innerHTML = randomMsg[Math.floor(Math.random() * randomMsg.length)];
     </script>
     <script src="../themeSwapper.js"></script>
     <script>

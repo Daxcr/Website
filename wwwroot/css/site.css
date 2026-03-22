@@ -184,27 +184,45 @@ a {
     text-shadow: 0 0 20px var(--titleShadow);
     z-index: 10000;
 }
-#themeSwitcher {
+.settings {
     position: fixed;
-    right: 30px;
-    top: 30px;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: 700px;
+    padding: 35px;
+    background-color: #000000aa;
+    border-radius: 10px;
+    outline: #8d8d8d 2px solid;
+    transform: translate(-50%, -50%);
+    backdrop-filter: blur(60px);
+}
+#themeSwitcher {
     font-size: 24px;
-    color: var(--textColour);
+    color: #ffffff;
     z-index: 10000;
-    background-color: var(--itemColour);
-    border: 2px solid var(--itemOutline);
+    background-color: #2a2a2a;
+    border: 2px solid #7a7a7a;
     border-radius: 8px;
     padding: 6px 10px;
     cursor: pointer;
     width: 200px;
 }
-
 label[for="themeSwitcher"] {
-    position: fixed;
-    right: 250px;
-    top: 38px;
     font-size: 24px;
-    color: var(--subtextColour);
+    color: #c0c0c0;
+    z-index: 10000;
+}
+#useSound {
+    z-index: 10000;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+label[for="useSound"] {
+    font-size: 24px;
+    color: #c0c0c0;
     z-index: 10000;
 }
 .quote {
@@ -226,7 +244,6 @@ body::before {
     content: "";
     background-image: url("https://dax.hiveborn.digital/x.png");
     opacity: var(--crosshatchStrength);
-    z-index: 1;
     position: absolute;
     top: 0;
     left: 0;

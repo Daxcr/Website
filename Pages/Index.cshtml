@@ -1,324 +1,139 @@
 ﻿@page
-@model IndexModel
-@{
-    ViewData["Title"] = "Daxcr";
-}
-
+@model Website.Pages.IndexModel
+<!DOCTYPE html>
 <html>
-    <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
-        <meta name="viewport" content="width=device-width, initial-scale=0.5">
-        <link rel="stylesheet" href="~/css/site.css"/>
-    </head>
-    <body>
-        <div id="title"></div> 
-        <div id="splash"></div> 
-
-        <div style="z-index: 99999;">
-            <label for="themeSwitcher">Theme</label>
-            <select id="themeSwitcher" name="themeSwitcher">
-                <option value="dark">Dark</option>
-                <option value="light">Light</option>
-                <option value="midnight">Midnight</option>
-                <option value="seaside">Seaside</option>
-                <option value="gilded">Gilded</option>
-                <option value="simulation">Simulation</option>
-                <option value="simulation-dark">Simulation Dark</option>
-                <option value="ocean">Ocean</option>
-                <option value="ember">Ember</option>
-                <option value="soft">Soft</option>
-                <option value="highcontrast">High Contrast</option>
-            </select>
-        </div>
-
-        <div class="icon">
-            <img src="icon.png" width="250px"></img>
-        </div>
-        <div id="schmove">
-            <canvas class="glslCanvas"
-                data-fragment-url="shaders/bg.frag"
-                data-vertex-url="shaders/bg.vert">
-            </canvas>
-
-            <div class="gradient-overlay"></div>
-
-            <div id="navigation"></div>
-        </div>
-    </body>
+<head>
+    <title>Daxcr</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <link rel="stylesheet" href="~/css/site.css"/>
+    <style>
+        body {
+            background-color: #000000 !important;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        iframe {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            display: block;
+        }
+        .settings {
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+        body.settings-open .settings {
+            pointer-events: all;
+            opacity: 1;
+        }
+        #frame {
+            filter: blur(0);
+            transform: scale(1);
+            pointer-events: all;
+            transition: filter 0.4s ease, transform 0.4s ease;
+        }
+        body.settings-open #frame {
+            filter: blur(10px);
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+        #settingsButton {
+            z-index: 99999;
+            position: fixed;
+            right: 40px;
+            top: 40px;
+            filter: drop-shadow(0 0 20px #000000);
+            transition: transform 0.75s ease, opacity 0.15s ease;
+            opacity: 0.6;
+        }
+        #settingsButton:hover {
+            transform: scale(1.2) rotate(90deg);
+        }
+        body.settings-open #settingsButton{
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div style="z-index: 99990;" class="settings">
+        <label for="themeSwitcher">Theme</label>
+        <select id="themeSwitcher" name="themeSwitcher">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="midnight">Midnight</option>
+            <option value="seaside">Seaside</option>
+            <option value="gilded">Gilded</option>
+            <option value="simulation">Simulation</option>
+            <option value="simulation-dark">Simulation Dark</option>
+            <option value="ocean">Ocean</option>
+            <option value="ember">Ember</option>
+            <option value="soft">Soft</option>
+            <option value="highcontrast">High Contrast</option>
+        </select><br><br>
+        <input type="checkbox" id="useSound">
+        <label for="useSound">Sound Effects (button not working yet)</label>
+    </div>
+    <img id="settingsButton" width="60px" src="socialicons/settings.png"/>
+    <iframe id="frame" src="/home"></iframe>
     <script>
-        document.addEventListener("click", e => {
-            const link = e.target.closest("a");
-            if (!link) return;
+        if (window.self !== window.top) {
+            window.top.location.replace("/");
+        }
+    </script>
+    <script src="~/themeSwapper.js"></script>
+    <script>
+        if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+        }
 
-            const audio = new Audio("audio/click.wav");
-            audio.volume = 0.1;
-            audio.play();
-
-            e.preventDefault();
-            document.getElementById("schmove").classList.add("fade-out");
-            document.getElementsByClassName("icon")[0].classList.add("fade-out");
-            setTimeout(() => {
-                window.location = link.href;
-                }, 2000);
-            });
-            window.addEventListener("pageshow", event => {
-            document.getElementById("schmove").classList.remove("fade-out");
-            document.getElementsByClassName("icon")[0].classList.remove("fade-out");
+        document.getElementById("settingsButton").addEventListener("click", function() {
+            document.body.classList.toggle("settings-open");
         });
     </script>
     <script>
-        const title = document.getElementById("title");
-        let titleText = "Hello, World!";
-        let random = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@@#$%^&*()_+-=[]{}|;':,.<>/?`~";
-        let index = 0;
+        const frame = document.getElementById("frame");
 
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
+        const params = new URLSearchParams(window.location.search);
+        let path = params.get("path") || window.location.pathname;
+        if (path === "/" || path === "") path = "/home";
+
+        frame.src = (path === "/" || path === "") ? "/home?_iframe=1" : path + (path.includes("?") ? "&" : "?") + "_iframe=1";
+
+        if (params.has("path")) {
+            history.replaceState(null, "", path === "/home" ? "/" : path);
         }
 
-        async function animateTitle() {
-            for (let i = 0; i < 2; i++) {
-                title.textContent = `${titleText.substring(0, index)}${random.charAt(Math.floor(Math.random() * random.length))}`;
-                await sleep(20);
-            }
-            index += 1;
-            if (index < titleText.length) {
-                setTimeout(animateTitle, 5);
-            } else {
-                title.textContent = titleText;
-            }
+        function syncUrl() {
+            try {
+                const current = frame.contentWindow.location.pathname;
+                document.title = frame.contentDocument.title;
+                history.replaceState(null, "", current === "/home" ? "/" : current);
+            } catch (e) {}
         }
 
-        _ = animateTitle();
+        function syncTheme() {
+            try {
+                const t = localStorage.getItem("theme") ?? "dark";
+                frame.contentWindow?.postMessage({ type: "theme", theme: themes[t] }, "*");
+            } catch (e) {}
+        }
+
+        frame.addEventListener("load", () => {
+            syncUrl();
+            syncTheme();
+        });
+
+        setInterval(() => {
+            syncUrl();
+            syncTheme();
+        }, 200);
     </script>
-    <script src="lib/glslCanvas.js"></script>
-    <script>
-        const canvas = document.querySelector(".glslCanvas");
-        const sandbox = new GlslCanvas(canvas);
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            sandbox.setUniform("u_resolution", canvas.width, canvas.height);
-        }
-
-        window.addEventListener("resize", resize);
-        
-        resize();
-
-        let startTime = Date.now();
-        let lastTimeShader = performance.now();
-
-        function animate() {
-
-            const now = Date.now();
-            const elapsed = (now - startTime) / 1000.0;
-
-            sandbox.setUniform("u_time", elapsed);
-
-            requestAnimationFrame(animate);
-        }
-
-        animate(); 
-    </script>
-    <script>
-        let items = {
-            "Extended Bio": "bio/",
-            "Projects": "projects/",
-            "Socials": "@@/",
-            "Archive": "archive/",
-            "Statistics": "stats/",
-            "Credit": "credit/",
-            "Hiveborn Digital": "https://hiveborn.digital/"
-        };
-        let itemImages = {
-            "Extended Bio": "blog.png",
-            "Projects": "gamedev.png",
-            "Socials": "insta.png",
-            "Archive": "download.png",
-            "Statistics": "stonks.png",
-            "Credit": "misc.png",
-            "Hiveborn Digital": "hbd.png"
-        }
-        let objects = []
-        let container = document.getElementById("navigation");
-
-        function setup() {
-            let index = 0;
-            for (let key in items) {
-                if (items.hasOwnProperty(key)) {
-                    let div = document.createElement("div");
-                    let img = document.createElement("div");
-                    div.className = "nav-item";
-                    img.className = "nav-image";
-
-                    let p = document.createElement("p");
-                    let a = document.createElement("a");
-                    let icon = document.createElement("img");
-                    icon.src = `socialicons/${itemImages[key]}`;
-                    icon.width = 100;
-                    //icon.className = "nav-icon";
-                    p.textContent = key;
-
-                    a.href = items[key];
-                    a.className = "nav-link";
-
-                    img.appendChild(icon);
-                    a.appendChild(img);
-                    a.appendChild(p);
-                    div.appendChild(a);
-
-                    container.appendChild(div);
-
-                    objects[index] = div;
-                    index += 1;
-                }
-            }
-        }
-        let lastTime = 0;
-        let spacing = 0;
-        let targetSpacing = 0;
-        let radius = 500;
-        let rotation = 0;
-        let speed = 0;
-
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-
-        function lerp(start, end, time) {
-            return start + (end - start) * time;
-        }
-
-        function loop(timestamp) {
-            let deltaTime = (timestamp - lastTime) / 1000;
-            lastTime = timestamp;
-
-            if (deltaTime > 0.2) {
-                deltaTime = 0.2;
-            }
-            
-            spacing = lerp(spacing, targetSpacing, deltaTime * speed);
-
-            speed += deltaTime * 2;
-            if (speed > 4){
-                speed = 4;
-            }
-
-            rotation += deltaTime / 9;
-
-            radius = window.innerWidth / 5.5;
-            if (radius < 300) {
-                radius = 300;
-            }
-
-            let centerX = document.documentElement.clientWidth / 2;
-            let centerY = document.documentElement.clientHeight / 2;
-
-            for (let i = 0; i < objects.length; i++) {
-                let angle = (spacing * i) + rotation;
-
-                let x = centerX + radius * Math.cos(angle) - objects[i].offsetWidth / 2;
-                let y = centerY + radius * Math.sin(angle) - objects[i].offsetHeight / 2;
-
-                objects[i].style.left = `${x}px`;
-                objects[i].style.top = `${y}px`;
-            }
-
-            requestAnimationFrame(loop);
-        }
-        
-        async function start() {
-            await sleep(300);
-            setup();
-            targetSpacing = (2 * Math.PI) / objects.length;
-            requestAnimationFrame(loop);
-        }
-        start();
-    </script>
-    <script>
-        splash = document.getElementById("splash");
-        const now = new Date();
-        randomMsg = [
-            "Hello!",
-            "Sitting in the corner",
-            "haha, I am Peter and I am green",
-            "This website is sponsored by your mother.",
-            "Frogeline!",
-            "Go get a job",
-            "// TODO: go fishing",
-            "This is splash text.",
-            "Dax says hi!",
-            "imma dax your cr",
-            "No secrets here!",
-            "\"Professional website\"",
-            "This website is great. It's the greatest<br>website I've ever seen, really. I've never<br>seen a better website.",
-            "Delusional!",
-            "fih 💔",
-            "Watching Instagram Reels and driving feels<br>illegal.",
-            "Wow",
-            "message.txt",
-            "John, get the hummus",
-            "Is this on?",
-            "Good morning, afternoon, evening, night,<br>whatever",
-            "I ran out of beer.",
-            "Can I flex my email? It's daxcr@@dax.cr",
-            "Correct!",
-            "This is a website.",
-            "Dax forgets to say hi.",
-            "Flint and steel!",
-            "No sign of intelligence anywhere...",
-            "You're short."
-        ]
-        if (now.getMonth() === 4 && now.getDate() === 9){
-            randomMsg = [
-                "Happy birthday to meeeee!",
-                "It's my birthday",
-                "Send me 5 billion dollars as a present pls",
-                "I'm one year closer to dying.",
-                "WOOOOOOOO!"
-            ]
-        }
-        if (now.getMonth() === 11 && now.getDate() === 25){
-            randomMsg = [
-                "Chrimas",
-                "So like, we don't get snow down here.",
-                "Santa and his big ass sack",
-                "I haven't seen Jak since late November.<br>Maybe Santa thought he was an elf.",
-                "Ts is NOT Halloween."
-            ]
-        }
-        if (now.getMonth() === 3 && now.getDate() === 1){
-            randomMsg = [
-                "grwtgnhwjrtgkwkjdfhgbjks",
-                "wawawa",
-                "hop on fort",
-                "blublublublublub",
-                "You da real April Fool!"
-            ]
-        }
-        if (now.getMonth() === 9 && now.getDate() === 31){
-            randomMsg = [
-                "boo",
-                "spooky scary",
-                "Daxcr was shot by Skeleton.",
-                "Kid knocked on my door saying sum \"Trick<br>or Treat\".",
-                "Ts IS Halloween twin 🥲"
-            ]
-        }
-        if (now.getMonth() === 0 && now.getDate() === 1){
-            randomMsg = [
-                "New year new me",
-                `Already fucked up ${now.getFullYear()}.<br>${now.getFullYear() + 1} gonna be my year fr.`,
-                "Babe there's cows outside...",
-                "Wake up! It's the first of the month!", 
-                "Cron must be excited."
-            ]
-        }
-
-        splash.innerHTML = randomMsg[Math.floor(Math.random() * randomMsg.length)];
-    </script>
-    <script src="themeSwapper.js"></script>
+</body>
 </html>
