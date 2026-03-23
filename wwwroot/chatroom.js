@@ -5,6 +5,7 @@ const admin = document.getElementById("adminPasscode");
 const chatRegion = document.getElementById("chatContent");
 
 document.getElementById("sendButton").addEventListener("click", () => {
+    console.log(`Sending: ${username.value} | ${message.value}`)
     connection.invoke("SendMessage", username.value, message.value, admin.value)
         .catch(err => console.error(err));
     message.value = "";
