@@ -11,7 +11,8 @@ public class Socket : Hub
     }
     public async Task SendMessage(string user, string message, string adminPasscode)
     {
-        if ((user.ToLower().Trim() == "daxcr" && adminPasscode != ConnectionTracker.passcode) || message.Trim() != "") return;
+        if ((user.ToLower().Trim() == "daxcr" && adminPasscode != ConnectionTracker.passcode) || message.Trim() == "") return;
+        Console.WriteLine($"Distributing message: {user} | {message}");
         await Clients.All.SendAsync("ReceiveMessage", user, message);
     }
     public override async Task OnConnectedAsync()
