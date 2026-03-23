@@ -28,22 +28,7 @@ public class Socket : Hub
 
 public class ConnectionTracker
 {
-    public static string passcode;
-    public ConnectionTracker()
-    {
-        try {
-            passcode = File.ReadAllText("/etc/dax.cr/password.txt").Trim();
-            Console.WriteLine(passcode);
-        } catch
-        {
-            try {
-                passcode = File.ReadAllText("password.txt").Trim();
-            } catch
-            {
-                passcode = "";
-            }
-        }
-    }
+    public static string passcode = File.ReadAllText("/etc/dax.cr/password.txt").Trim();
     public DateTime serverStart { get; } = DateTime.UtcNow;
     private readonly ConcurrentDictionary<string, bool> connections = new();
 
