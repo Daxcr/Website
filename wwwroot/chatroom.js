@@ -15,8 +15,11 @@ connection.on("ReceiveMessage", (user, message) => {
     div.classList.add("chatMessage");
     let colour = "#ffffff";
     
-    if (user == "Daxcr") { colour = "#ff0000" }
+    if (user == "Daxcr") { colour = "#ff0000"; }
+
+    let display = user;
+    if (user.Trim() == "") { display = "guest"; }
     
-    div.innerHTML = `<span style="color: ${colour}; font-weight: 600;">${user}</span><span style="color: #888888;"> ${message}</span>`;
+    div.innerHTML = `<span style="color: ${colour}; font-weight: 600;">${display}</span><span style="color: #888888;"> ${message}</span>`;
     chatRegion.appendChild(div);
 })
