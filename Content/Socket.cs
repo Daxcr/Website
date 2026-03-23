@@ -9,9 +9,15 @@ public class Socket : Hub
     {
         this.tracker = tracker;
         try {
-            passcode = File.ReadAllText("password.txt");
+            passcode = File.ReadAllText("/etc/dax.cr/password.txt");
         } catch
         {
+            try {
+                passcode = File.ReadAllText("password.txt");
+            } catch
+            {
+                passcode = "";
+            }
             passcode = "";
         }
     }
