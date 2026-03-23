@@ -33,6 +33,7 @@ public class ConnectionTracker
     {
         try {
             passcode = File.ReadAllText("/etc/dax.cr/password.txt").Trim();
+            Console.WriteLine(passcode);
         } catch
         {
             try {
