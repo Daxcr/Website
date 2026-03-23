@@ -4,26 +4,14 @@ using System.Collections.Concurrent;
 public class Socket : Hub
 {
     private readonly ConnectionTracker tracker;
-    private string passcode;
     public Socket(ConnectionTracker tracker)
     {
         this.tracker = tracker;
-        try {
-            passcode = File.ReadAllText("/etc/dax.cr/password.txt");
-        } catch
-        {
-            try {
-                passcode = File.ReadAllText("password.txt");
-            } catch
-            {
-                passcode = "";
-            }
-            passcode = "";
-        }
+
     }
     public async Task SendMessage(string user, string message, string adminPasscode)
     {
-        if ((user.ToLower().Trim() == "daxcr" && adminPasscode != passcode) || message.Trim() == "") return;
+        if ((user.ToLower().Trim() == "daxcr" && adminPasscode != ConnectionTracker.passcode) || message.Trim() == "") return;
         await Clients.All.SendAsync("ReceiveMessage", user, message);
     }
     public override async Task OnConnectedAsync()
@@ -40,6 +28,21 @@ public class Socket : Hub
 
 public class ConnectionTracker
 {
+    public static string passcode;
+    public ConnectionTracker()
+    {
+        try {
+            passcode = File.ReadAllText("/etc/dax.cr/password.txt").Trim();
+        } catch
+        {
+            try {
+                passcode = File.ReadAllText("password.txt").Trim();
+            } catch
+            {
+                passcode = "";
+            }
+        }
+    }
     public DateTime serverStart { get; } = DateTime.UtcNow;
     private readonly ConcurrentDictionary<string, bool> connections = new();
 
