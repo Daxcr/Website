@@ -13,13 +13,21 @@ document.getElementById("sendButton").addEventListener("click", () => {
 connection.on("ReceiveMessage", (user, message) => {
     let div = document.createElement("div");
     div.classList.add("chatMessage");
-    let colour = "#ffffff";
-    
-    if (user == "Daxcr") { colour = "#ff0000"; }
 
-    let display = user;
-    if (user.trim() == "") { display = "guest"; }
-    
-    div.textContent = `<span style="color: ${colour}; font-weight: 600;">${display}</span><span style="color: #888888;"> ${message}</span>`;
+    let colour = "#ffffff";
+    if (user == "Daxcr") { colour = "#ff0000"; }
+    let display = user.trim() == "" ? "guest" : user;
+
+    let nameSpan = document.createElement("span");
+    nameSpan.style.color = colour;
+    nameSpan.style.fontWeight = "600";
+    nameSpan.textContent = display;
+
+    let messageSpan = document.createElement("span");
+    messageSpan.style.color = "#888888";
+    messageSpan.textContent = " " + message;
+
+    div.appendChild(nameSpan);
+    div.appendChild(messageSpan);
     chatRegion.appendChild(div);
-})
+});
