@@ -4,12 +4,20 @@ using System.Collections.Concurrent;
 public class Socket : Hub
 {
     private readonly ConnectionTracker tracker;
+    private string passcode;
     public Socket(ConnectionTracker tracker)
     {
         this.tracker = tracker;
+        try {
+            passcode = File.ReadAllText("password.txt");
+        } catch
+        {
+            passcode = "";
+        }
     }
-    public async Task SendMessage(string user, string message)
+    public async Task SendMessage(string user, string message, string adminPasscode)
     {
+        if ((user.ToLower().Trim() == "daxcr" && adminPasscode != passcode) || message.Trim() == "") return;
         await Clients.All.SendAsync("ReceiveMessage", user, message);
     }
     public override async Task OnConnectedAsync()

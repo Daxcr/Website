@@ -29,17 +29,26 @@
             opacity: 0;
             transition: opacity 0.15s ease;
         }
+        .chat {
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+        body.chat-open .chat {
+            pointer-events: all;
+            opacity: 1;
+        }
         body.settings-open .settings {
             pointer-events: all;
             opacity: 1;
         }
-        #frame {
+        #frameContainer {
             filter: blur(0);
             transform: scale(1);
             pointer-events: all;
             transition: filter 0.4s ease, transform 0.4s ease;
         }
-        body.settings-open #frame {
+        body.settings-open #frameContainer {
             filter: blur(10px);
             transform: scale(0.95);
             pointer-events: none;
@@ -53,11 +62,48 @@
             transition: transform 0.75s ease, opacity 0.15s ease;
             opacity: 0.6;
         }
+        #chatButton {
+            z-index: 99999;
+            position: fixed;
+            right: 40px;
+            bottom: 40px;
+            filter: drop-shadow(0 0 20px #000000);
+            transition: transform 0.75s ease, opacity 0.15s ease;
+            opacity: 0.6;
+        }
+        #chatButton:hover {
+            transform: scale(1.2);
+        }
         #settingsButton:hover {
             transform: scale(1.2) rotate(90deg);
         }
         body.settings-open #settingsButton{
             opacity: 1;
+        }
+        #sendButton {
+            color: #ffffff;
+            font-size: 24px;
+            padding: 4px;
+            width: 42px;
+            height: 42px;
+            background-color: #000000aa;
+            border-radius: 10px;
+            outline: #8d8d8d 2px solid;
+            margin-left: 430px;
+            margin-top: -42px;
+            text-align: center;
+            user-select: none;
+            transition: all 0.3s ease;
+        }
+        #sendButton:hover {
+            transform: scale(1.15);
+            background-color: #48f556;
+        }
+        .chatMessage {
+            padding: 12px;
+            background-color: #0000006a;
+            border-radius: 10px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -76,12 +122,31 @@
             <option value="ember">Ember</option>
             <option value="soft">Soft</option>
             <option value="highcontrast">High Contrast</option>
-        </select><br><br>
-        <input type="checkbox" id="useSound">
-        <label for="useSound">Sound Effects (button not working yet)</label>
+        </select><br>
+        <label for="useSound">Sound Effects (not working yet)</label>
+        <input type="checkbox" id="useSound"><br>
+        
+        <label for="chatUsername">Chat Username</label>
+        <input type="text" id="chatUsername"><br>
+
+        <label for="adminPasscode">Admin Passcode</label>
+        <input type="password" id="adminPasscode"><br>
     </div>
+
     <img id="settingsButton" width="60px" src="socialicons/settings.png"/>
-    <iframe id="frame" src="/home"></iframe>
+    <div id="frameContainer">
+        <iframe id="frame" src="/home"></iframe>
+        <img id="chatButton" width="60px" src="socialicons/chat.png"/>
+
+        <div style="font-size: 50%;" class="chat">
+            <p style="color: #ffffff;">Messages are ephemeral.</p>
+            <p style="color: #ffffff;">You may change your username in settings.</p>
+            <div style="height: 600px; overflow-y: auto; margin-top: 30px;" id="chatContent"></div>
+            <input type="text" id="chatbox" style="width: calc(100% - 62px); height: 42px; font-size: 24px; margin-top: 30px;">
+            <div id="sendButton">➤</div>
+        </div>
+    </div>
+
     <script>
         if (window.self !== window.top) {
             window.top.location.replace("/");
@@ -96,6 +161,11 @@
         document.getElementById("settingsButton").addEventListener("click", function() {
             document.body.classList.toggle("settings-open");
         });
+        document.getElementById("chatButton").addEventListener("click", function() {
+            document.body.classList.toggle("chat-open");
+        });
+
+
     </script> 
     <script>
         const frame = document.getElementById("frame");
@@ -144,12 +214,9 @@
         .configureLogging(signalR.LogLevel.Information)
         .build();
 
-    connection.on("ReceiveMessage", (user, message) => {
-        console.log(`${user}: ${message}`);
-    });
-
     (async () => {
         await connection.start();
     })();
 </script>
+<script src="chatroom.js"></script>
 </html>

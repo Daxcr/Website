@@ -17,6 +17,7 @@ public class StatsController : ControllerBase
     [HttpGet("api/stats")]
     public IActionResult GetStats() => Ok(new {
         connectedClients = tracker.Count,
-        serverUptime = getUptime()
+        serverUptime = getUptime(),
+        serverTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
     });
 }

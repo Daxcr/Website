@@ -197,6 +197,18 @@ a {
     transform: translate(-50%, -50%);
     backdrop-filter: blur(60px);
 }
+.chat {
+    position: fixed;
+    bottom: 50px;
+    right: 150px;
+    width: 550px;
+    height: 820px;
+    padding: 35px;
+    background-color: #000000aa;
+    border-radius: 10px;
+    outline: #8d8d8d 2px solid;
+    backdrop-filter: blur(60px);
+}
 #themeSwitcher {
     font-size: 24px;
     color: #ffffff;
@@ -221,6 +233,19 @@ label[for="themeSwitcher"] {
     height: 24px;
 }
 label[for="useSound"] {
+    font-size: 24px;
+    color: #c0c0c0;
+    z-index: 10000;
+}
+#chatUsername, #adminPasscode {
+    z-index: 10000;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 150px;
+    height: 32px;
+    font-size: 24px;
+}
+label[for="chatUsername"], label[for="adminPasscode"] {
     font-size: 24px;
     color: #c0c0c0;
     z-index: 10000;
