@@ -25,6 +25,12 @@
                 data-vertex-url="../shaders/bg.vert">
             </canvas>
 
+            <div class="content">
+                <p class="heading">Server Statistics</p>
+                <p class="paragraph" id="usersOnline">Connected users: 1</p>
+                <p class="paragraph" id="serverUptime">Uptime: 0h 0m 0s</p>
+            </div>
+
             <div class="gradient-overlay"></div>
         </div>
 
@@ -39,6 +45,16 @@
             </div>
         </div>
     </body>
+    <script>
+        const usersOnline = document.getElementById("usersOnline");
+        const serverUptime = document.getElementById("serverUptime");
+        setInterval(async () => {
+            const response = await fetch("/api/stats");
+            const data = await response.json();
+            usersOnline.innerHTML = `Connected users: ${data.connectedClients}`;
+            serverUptime.innerHTML = `Uptime: ${data.serverUptime}`;
+        }, 2500);
+    </script>
     <script>
         if (window.self === window.top) {
             window.location.replace("/?path=" + window.location.pathname);

@@ -7,6 +7,9 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddControllers();
 
+builder.Services.AddSignalR();
+builder.Services.AddSingleton<ConnectionTracker>();
+
 var app = builder.Build();
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions {
@@ -40,5 +43,7 @@ app.MapRazorPages()
    .WithStaticAssets();
 
 app.MapFallbackToPage("/Index");
+
+app.MapHub<Socket>("/websocket");
 
 app.Run();

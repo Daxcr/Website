@@ -96,7 +96,7 @@
         document.getElementById("settingsButton").addEventListener("click", function() {
             document.body.classList.toggle("settings-open");
         });
-    </script>
+    </script> 
     <script>
         const frame = document.getElementById("frame");
 
@@ -136,4 +136,20 @@
         }, 200);
     </script>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/websocket")
+        .withAutomaticReconnect()
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+    connection.on("ReceiveMessage", (user, message) => {
+        console.log(`${user}: ${message}`);
+    });
+
+    (async () => {
+        await connection.start();
+    })();
+</script>
 </html>
