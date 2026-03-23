@@ -18,8 +18,8 @@ connection.on("ReceiveMessage", (user, message) => {
     if (user == "Daxcr") { colour = "#ff0000"; }
 
     let display = user;
-    if (user.Trim() == "") { display = "guest"; }
+    if (user.trim() == "") { display = "guest"; }
     
-    div.innerHTML = `<span style="color: ${colour}; font-weight: 600;">${display}</span><span style="color: #888888;"> ${message}</span>`;
+    div.textContent = `<span style="color: ${colour}; font-weight: 600;">${display}</span><span style="color: #888888;"> ${message}</span>`;
     chatRegion.appendChild(div);
 })
