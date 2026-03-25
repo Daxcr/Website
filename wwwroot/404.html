@@ -1,0 +1,137 @@
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=0.5">
+        <link rel="stylesheet" href="/css/site.css"/>
+        <style>
+            hr {
+                color: #ffffff2a;
+                max-width: 800px;
+                margin-left: 0;
+                margin-right: auto;
+            }
+            html, body {
+                overflow-y: scroll !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="title"></div> 
+        <div id="schmove">
+            <canvas class="glslCanvas"
+                data-fragment-url="/shaders/bg2.frag"
+                data-vertex-url="/shaders/bg.vert">
+            </canvas>
+
+            <div class="content">
+                <p class="heading">404</p>
+                <p class="paragraph">The resource you were looking doesn't exist.</p>
+            </div>
+
+            <div class="gradient-overlay"></div>
+        </div>
+
+        <div style="position: fixed; left: 40px; top: 130px; z-index: 99999;">
+            <div class="nav-item">
+                <a href="/home" class="nav-link">
+                    <div class="nav-image">
+                        <img src="/socialicons/r.png" width="100">
+                    </div>
+                    <p>RETURN</p>
+                </a>
+            </div>
+        </div>
+    </body>
+    <script>
+        if (window.self === window.top) {
+            window.location.replace("/?path=" + window.location.pathname);
+        }
+    </script>
+    <script>
+        document.addEventListener("click", e => {
+            const link = e.target.closest("a");
+            if (!link) return;
+
+            const audio = new Audio("/audio/click.wav");
+            audio.volume = 0.1;
+            audio.play();
+
+            e.preventDefault();
+            document.getElementById("schmove").classList.add("fade-out");
+            setTimeout(() => {
+                window.location = link.href;
+                }, 2000);
+            });
+            window.addEventListener("pageshow", event => {
+            document.getElementById("schmove").classList.remove("fade-out");
+        });
+    </script>
+    <script>
+        const title = document.getElementById("title");
+        let titleText = ":(";
+        let random = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@@#$%^&*()_+-=[]{}|;':,.<>/?`~";
+        let index = 0;
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function animateTitle() {
+            for (let i = 0; i < 2; i++) {
+                title.textContent = `${titleText.substring(0, index)}${random.charAt(Math.floor(Math.random() * random.length))}`;
+                await sleep(20);
+            }
+            index += 1;
+            if (index < titleText.length) {
+                setTimeout(animateTitle, 5);
+            } else {
+                title.textContent = titleText;
+            }
+        }
+
+        _ = animateTitle();
+    </script>
+    <script src="/lib/glslCanvas.js"></script>
+    <script>
+        const canvas = document.querySelector(".glslCanvas");
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            sandbox.setUniform("u_resolution", canvas.width, canvas.height);
+        }
+
+        window.addEventListener("resize", resize);
+        
+        resize();
+
+        const sandbox = new GlslCanvas(canvas);
+
+        let startTime = Date.now();
+        let lastTimeShader = performance.now();
+
+        function animate() {
+
+            const now = Date.now();
+            const elapsed = (now - startTime) / 1000.0;
+
+            sandbox.setUniform("u_time", elapsed);
+
+            requestAnimationFrame(animate);
+        }
+
+        animate(); 
+    </script>
+    <script src="/themeSwapper.js"></script>
+    <script>
+        window.addEventListener("message", function(event) {
+            if (event.data?.type === "theme") {
+                for (const [key, val] of Object.entries(event.data.theme)) {
+                    document.documentElement.style.setProperty(key, val);
+                }
+            }
+        });
+    </script>
+</html>

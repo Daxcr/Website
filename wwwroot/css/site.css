@@ -16,6 +16,8 @@
     --quoteBackground: #0000009c;
     --quoteOutline: #ffffff2a;
     --quoteColour: #ffffff;
+
+    --navitemScaling: 1.3;
 }
 
 html {
@@ -52,7 +54,7 @@ html, body {
     z-index: 2;
 }
 .nav-item:hover {
-    transform: scale(1.3);
+    transform: scale(var(--navitemScaling)) !important;
     z-index: 999;
 }
 .nav-image {
@@ -170,7 +172,7 @@ a {
     position: fixed;
     left: 30px;
     top: 30px;
-    font-size: 64px;
+    font-size: 54px;
     color: var(--textColour);
     text-shadow: 0 0 20px var(--titleShadow);
     z-index: 10000;
@@ -178,8 +180,8 @@ a {
 #splash {
     position: fixed;
     left: 30px;
-    top: 130px;
-    font-size: 32px;
+    top: 110px;
+    font-size: 26px;
     color: var(--splashColour);
     text-shadow: 0 0 20px var(--titleShadow);
     z-index: 10000;
@@ -188,23 +190,24 @@ a {
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 500px;
-    height: 700px;
+    width: min(500px, 95%);;
+    height: min(700px, 70%);
     padding: 35px;
-    background-color: #000000aa;
+    background-color: #1c1c1caa;
     border-radius: 10px;
     outline: #8d8d8d 2px solid;
     transform: translate(-50%, -50%);
     backdrop-filter: blur(60px);
+    overflow-y: auto;
 }
 .chat {
     position: fixed;
     bottom: 50px;
-    right: 150px;
-    width: 550px;
-    height: 820px;
+    right: 140px;
+    width: 450px;
+    height: min(720px, 70%);
     padding: 35px;
-    background-color: #000000aa;
+    background-color: #1c1c1caa;
     border-radius: 10px;
     outline: #8d8d8d 2px solid;
     backdrop-filter: blur(60px);
