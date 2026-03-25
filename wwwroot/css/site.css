@@ -161,7 +161,7 @@ html, body {
     }
 }
 .paragraph {
-    font-size: 22px;
+    font-size: 18px;
     color: var(--subtextColour);
     max-width: min(800px, 65%);
 }
@@ -260,11 +260,14 @@ label[for="chatUsername"], label[for="adminPasscode"] {
     border-radius: 10px;
     box-shadow: 0 0 40px var(--contentShadow);
     padding: 20px;
-    max-width: 800px;
+    max-width: min(780px, 65%);
     margin-bottom: 30px;
 }
 .quote * {
     color: var(--quoteColour) !important;
+}
+hr {
+    width: min(880px, 68%);
 }
 .heading {
     color: var(--headingColour);
@@ -311,7 +314,7 @@ body::before {
     box-shadow: 0 0 30px #000000a6;
 }
 .inline-image {
-    max-width: min(80%, 700px);
+    max-width: min(65%, 500px);
     outline: #ffffff 2px solid;
     border-radius: 10px;
     box-shadow: 0 0 30px #000000a6;
