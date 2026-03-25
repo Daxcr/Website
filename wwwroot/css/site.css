@@ -331,7 +331,7 @@ body::before {
     overflow-y: auto;
     transition: height 1.2s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.6s ease;
     opacity: 0.5;
-    font-size: 55%;
+    font-size: 40%;
 }
 #descriptions:hover {
     opacity: 1.0;
