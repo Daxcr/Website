@@ -47,7 +47,7 @@ void main() {
         float outlineSize = 0.1 + (1.0 - 0.1) * exp(-u_time * 0.5);
 
         float angle = atan(centeredCoord.y, centeredCoord.x);
-        if (dist < circleSize * scale + (50.0 * outlineSize) && angle > angleEase) {
+        if (dist < circleSize * scale + (100.0 * outlineSize) && dist > circleSize * scale + (50.0 * outlineSize) && angle > angleEase) {
             gl_FragColor = vec4(vec3(0.43), 0.7);
             return;
         }

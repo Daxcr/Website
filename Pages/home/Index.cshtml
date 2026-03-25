@@ -17,7 +17,9 @@
         <div id="splash"></div> 
 
         <div class="icon">
+            <img src="ringBack.png" width="420px" class="ringSegment" style="z-index: -1;"></img>
             <img src="icon.png" width="250px"></img>
+            <img src="ringFront.png" width="420px" class="ringSegment"></img>
         </div>
         <div id="schmove">
             <canvas class="glslCanvas"
@@ -170,7 +172,6 @@
         }
         let objects = []
         let container = document.getElementById("navigation");
-        let icon = document.querySelector(".icon img");
         let descriptionBox = document.getElementById("descriptions");
         let currentItemDescription = "";
 
@@ -241,22 +242,27 @@
             return start + (end - start) * time;
         }
 
+        let ringStartTime = Date.now();
+
         function loop(timestamp) {
             if (document.documentElement.clientHeight < 900 && document.documentElement.clientHeight < document.documentElement.clientWidth){
                 if (document.documentElement.clientHeight < 700){
                     scale = 0.5;
-                    icon.style.transform = "scale(0.5)";
+                    document.documentElement.style.setProperty("--iconScale", "0.3");
+                    document.documentElement.style.setProperty("--iconRingScale", "1.2");
                     document.documentElement.style.setProperty("--navitemScaling", "0.67");
                     minRadius = 140;
                 } else {
                     scale = 0.7;
-                    icon.style.transform = "scale(0.7)";
+                    document.documentElement.style.setProperty("--iconScale", "0.6");
+                    document.documentElement.style.setProperty("--iconRingScale", "1.1");
                     document.documentElement.style.setProperty("--navitemScaling", "0.9");
                     minRadius = 200;
                 }
             } else {
                 scale = 1;
-                icon.style.transform = "scale(1.0)";
+                document.documentElement.style.setProperty("--iconScale", "1.0");
+                document.documentElement.style.setProperty("--iconRingScale", "1.0");
                 document.documentElement.style.setProperty("--navitemScaling", "1.3");
                 minRadius = 200;
                 if (document.documentElement.clientHeight > document.documentElement.clientWidth){
@@ -269,6 +275,9 @@
             if (deltaTime > 0.2) {
                 deltaTime = 0.2;
             }
+
+            let elapsed = (Date.now() - ringStartTime) / 1000;
+            document.documentElement.style.setProperty("--iconRingAngle", `${-18 + (Math.sin(elapsed / 12) * 13)}deg`);
             
             spacing = lerp(spacing, targetSpacing, deltaTime * speed);
 

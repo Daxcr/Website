@@ -18,6 +18,9 @@
     --quoteColour: #ffffff;
 
     --navitemScaling: 1.3;
+    --iconRingAngle: -18deg;
+    --iconScale: 1.0;
+    --iconRingScale: 1.0;
 }
 
 html {
@@ -122,6 +125,8 @@ html, body {
 
     animation: fadeIn 2s ease;
     transition: transform 2s ease;
+
+    transform: scale(var(--iconScale));
 }
 .icon.fade-out {
     transform: translateY(120vh);
@@ -338,4 +343,8 @@ body::before {
 }
 #descriptions:hover {
     opacity: 1.0;
+}
+.ringSegment {
+    position: absolute;
+    transform: rotate(var(--iconRingAngle)) scaleY(0.3) scale(var(--iconRingScale)) !important;
 }
