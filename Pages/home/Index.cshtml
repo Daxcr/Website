@@ -239,7 +239,7 @@
         }
 
         function loop(timestamp) {
-            if (document.documentElement.clientHeight < 900 && document.documentElement.clientHeight > document.documentElement.clientWidth){
+            if (document.documentElement.clientHeight < 900 && document.documentElement.clientHeight < document.documentElement.clientWidth){
                 if (document.documentElement.clientHeight < 700){
                     scale = 0.5;
                     icon.style.transform = "scale(0.5)";
