@@ -125,11 +125,12 @@ html, body {
 
     animation: fadeIn 2s ease;
     transition: transform 2s ease;
-
-    transform: scale(var(--iconScale));
 }
 .icon.fade-out {
     transform: translateY(120vh);
+}
+.icon img {
+    transform: scale(var(--iconScale));
 }
 
 .glslCanvas {
