@@ -56,6 +56,25 @@ const themes = {
         "--quoteOutline": "#ffffff2a",
         "--quoteColour": "#ffffff"
     },
+    "ultradark": {
+        "--bgColour": "#000000",
+        "--bgStrength": "0.24",
+        "--textColour": "#ffffff",
+        "--subtextColour": "#999999",
+        "--splashColour": "#e08383",
+        "--headingColour": "#ffffff",
+        "--itemColour": "#000000",
+        "--itemShineColour": "#1a1a1d",
+        "--itemOutline": "#000000",
+        "--itemShineOutline": "#4b4b4b",
+        "--iconImageBrightness": 1.0,
+        "--titleShadow": "#000000",
+        "--contentShadow": "#0000003a",
+        "--crosshatchStrength": "0.15",
+        "--quoteBackground": "#0000009c",
+        "--quoteOutline": "#ffffff2a",
+        "--quoteColour": "#ffffff"
+    },
     "seaside": {
         "--bgColour": "#4d91a1",
         "--bgStrength": "0.3",
@@ -188,6 +207,25 @@ const themes = {
         "--quoteBackground": "#693f6d",
         "--quoteOutline": "#00000000",
         "--quoteColour": "#ffffff"
+    },
+    "bloodmoon": {
+        "--bgColour": "#330000",
+        "--bgStrength": "0.065",
+        "--textColour": "#ca3d3d",
+        "--subtextColour": "#ffc0c0",
+        "--splashColour": "#f37d7d",
+        "--headingColour": "#f37d7d",
+        "--itemColour": "#851d1d",
+        "--itemShineColour": "#b14141",
+        "--itemOutline": "#851d1d00",
+        "--itemShineOutline": "#851d1d00",
+        "--iconImageBrightness": 1.0,
+        "--titleShadow": "#000000",
+        "--contentShadow": "#00000083",
+        "--crosshatchStrength": "0.2",
+        "--quoteBackground": "#0000004c",
+        "--quoteOutline": "#000000",
+        "--quoteColour": "#ee9494"
     },
     "highcontrast": {
         "--bgColour": "#000000",

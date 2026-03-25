@@ -328,7 +328,7 @@ body::before {
 #descriptions {
     position: fixed;
     left: 1%;
-    top: 25%;
+    top: 35%;
     width: 17%;
     height: 0px;
     background-color: var(--quoteBackground);
