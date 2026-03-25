@@ -29,6 +29,7 @@
 
             <div id="navigation"></div>
         </div>
+        <div id="descriptions"></div>
     </body>
     <script>
         if (window.self === window.top) {
@@ -55,6 +56,31 @@
             document.getElementById("schmove").classList.remove("fade-out");
             document.getElementsByClassName("icon")[0].classList.remove("fade-out");
         });
+    </script>
+    <script>
+        displayItemDescription = "";
+        const description = document.getElementById("descriptions");
+        let dindex = 0;
+
+        async function animateDescription() {
+            if (displayItemDescription != description.innerHTML){
+                for (let i = 0; i < 2; i++) {
+                    description.innerHTML = `${displayItemDescription.substring(0, dindex)}${random.charAt(Math.floor(Math.random() * random.length))}`;
+                    await sleep(10);
+                    dindex += 1;
+                }
+            } else {
+                dindex = 0;
+            }
+            if (dindex < displayItemDescription.length) {
+                setTimeout(animateDescription, 5);
+            } else {
+                description.innerHTML = displayItemDescription;
+                setTimeout(animateDescription, 500);
+            }
+        }
+
+        _ = animateDescription();
     </script>
     <script>
         const title = document.getElementById("title");
@@ -130,9 +156,20 @@
             "Credit": "misc.png",
             "Hiveborn Digital": "hbd.png"
         }
+        let itemDescriptions = {
+            "Extended Bio": "Self explanatory.",
+            "Projects": "My work-in-progress projects. Some may not be available and/or usable as of yet.",
+            "Socials": "My social media accounts.",
+            "Archive": "Archive of all my old/scrapped work. A lot of it are previous Celeste mods. This is essentially a museum.<br><br>This page is not finished yet.",
+            "Statistics": "Basic website statistics.",
+            "Credit": "Website credit.",
+            "Hiveborn Digital": "New Zealand-based indie game dev studio I run."
+        }
         let objects = []
         let container = document.getElementById("navigation");
         let icon = document.querySelector(".icon img");
+        let descriptionBox = document.getElementById("descriptions");
+        let currentItemDescription = "";
 
         function setup() {
             let index = 0;
@@ -142,6 +179,15 @@
                     let img = document.createElement("div");
                     div.className = "nav-item";
                     img.className = "nav-image";
+
+                    div.addEventListener("mouseover", function(event) {
+                        if (currentItemDescription != itemDescriptions[key]){
+                            displayItemDescription = `<h3>${key}</h3>${itemDescriptions[key]}`;
+                            currentItemDescription = itemDescriptions[key];
+                            dindex = 0;
+                            descriptionBox.innerHTML = "";
+                        }
+                    });
 
                     let p = document.createElement("p");
                     let a = document.createElement("a");
@@ -193,7 +239,7 @@
         }
 
         function loop(timestamp) {
-            if (document.documentElement.clientHeight < 900){
+            if (document.documentElement.clientHeight < 900 && document.documentElement.clientHeight > document.documentElement.clientWidth){
                 if (document.documentElement.clientHeight < 700){
                     scale = 0.5;
                     icon.style.transform = "scale(0.5)";

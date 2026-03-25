@@ -155,7 +155,7 @@ html, body {
     .paragraph {
         max-width: 800px !important;
     }
-    .side-image {
+    .side-image, #descriptions {
         opacity: 0;
     }
 }
@@ -314,4 +314,19 @@ body::before {
     outline: #ffffff 2px solid;
     border-radius: 10px;
     box-shadow: 0 0 30px #000000a6;
+}
+#descriptions {
+    position: fixed;
+    left: 1%;
+    top: 25%;
+    width: 17%;
+    height: 50%;
+    background-color: var(--quoteBackground);
+    z-index: 99999;
+    border-radius: 10px;
+    outline: 2px var(--quoteOutline) solid;
+    font-size: 24px;
+    color: var(--quoteColour);
+    padding: 1%;
+    overflow-y: auto;
 }

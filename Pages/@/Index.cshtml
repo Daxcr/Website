@@ -34,6 +34,8 @@
 
             <div id="navigation"></div>
         </div>
+        
+        <div id="descriptions"></div>
     </body>
     <script>
         if (window.self === window.top) {
@@ -60,6 +62,31 @@
             document.getElementById("schmove").classList.remove("fade-out");
             document.getElementsByClassName("icon")[0].classList.remove("fade-out");
         });
+    </script>
+    <script>
+        displayItemDescription = "";
+        const description = document.getElementById("descriptions");
+        let dindex = 0;
+
+        async function animateDescription() {
+            if (displayItemDescription != description.innerHTML){
+                for (let i = 0; i < 2; i++) {
+                    description.innerHTML = `${displayItemDescription.substring(0, dindex)}${random.charAt(Math.floor(Math.random() * random.length))}`;
+                    await sleep(10);
+                    dindex += 1;
+                }
+            } else {
+                dindex = 0;
+            }
+            if (dindex < displayItemDescription.length) {
+                setTimeout(animateDescription, 5);
+            } else {
+                description.innerHTML = displayItemDescription;
+                setTimeout(animateDescription, 500);
+            }
+        }
+
+        _ = animateDescription();
     </script>
     <script>
         const title = document.getElementById("title");
@@ -120,8 +147,8 @@
         let items = {
             "Discord": "https://discord.gg/6vbhdzmGq7",
             "Instagram": "https://www.instagram.com/daxcr_",
-            "YouTube": "https://www.youtube.com/@@daxcrdev",
-            "X/Twitter": "https://x.com/daxcr_",
+            "YouTube": "https://www.youtube.com/@@DaxcrDev",
+            "X/Twitter": "https://x.com/DaxcrDev",
             "Steam": "https://steamcommunity.com/id/Daxcr",
             "GitHub": "https://github.com/Daxcr",
             "Bluesky": "https://bsky.app/profile/dax.cr",
@@ -139,9 +166,22 @@
             "TikTok": "tt.png",
             "Email": "gmail.png"
         }
+        let itemDescriptions = {
+            "Discord": "My Discord server. My handle is also @@daxcr, although my DMs are closed.<br><br>URL: https://discord.gg/6vbhdzmGq7",
+            "Instagram": "My Instagram. I'm semi-active here.<br><br>URL: https://www.instagram.com/daxcr_",
+            "YouTube": "the tube<br><br>URL: https://www.youtube.com/@@DaxcrDev",
+            "X/Twitter": "Not so active here.<br><br>URL: https://x.com/DaxcrDev",
+            "Steam": "Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br>Daxcr is playing Celeste<br><br>URL: https://steamcommunity.com/id/Daxcr",
+            "GitHub": "My Github! This is where most of my projects go (for reference, check out my projects page).<br><br>URL: https://github.com/Daxcr",
+            "Bluesky": "Not so active here.<br><br>URL: https://bsky.app/profile/dax.cr",
+            "TikTok": "Instagram is better.<br><br>URL: https://www.tiktok.com/@@DaxcrDev",
+            "Email": "My email is daxcr@@dax.cr. You could also email daxaroodles@@gmail.com if you're special. I check my emails semi-often.<br><br>URL: mailto:daxcr@@dax.cr"
+        }
         let objects = []
         let container = document.getElementById("navigation");
         let icon = document.querySelector(".icon .nav-item");
+        let descriptionBox = document.getElementById("descriptions");
+        let currentItemDescription = "";
 
         function setup() {
             let index = 0;
@@ -151,6 +191,15 @@
                     let img = document.createElement("div");
                     div.className = "nav-item";
                     img.className = "nav-image";
+
+                    div.addEventListener("mouseover", function(event) {
+                        if (currentItemDescription != itemDescriptions[key]){
+                            displayItemDescription = `<h3>${key}</h3>${itemDescriptions[key]}`;
+                            currentItemDescription = itemDescriptions[key];
+                            dindex = 0;
+                            descriptionBox.innerHTML = "";
+                        }
+                    });
 
                     let p = document.createElement("p");
                     let a = document.createElement("a");
@@ -202,7 +251,7 @@
         }
 
         function loop(timestamp) {
-            if (document.documentElement.clientHeight < 900){
+            if (document.documentElement.clientHeight < 900 && document.documentElement.clientHeight > document.documentElement.clientWidth){
                 if (document.documentElement.clientHeight < 700){
                     scale = 0.5;
                     icon.style.transform = "scale(0.5)";
