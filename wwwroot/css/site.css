@@ -156,7 +156,7 @@ html, body {
         max-width: 800px !important;
     }
     .side-image, #descriptions {
-        opacity: 0;
+        opacity: 0 !important;
         pointer-events: none;
     }
 }
@@ -321,13 +321,18 @@ body::before {
     left: 1%;
     top: 25%;
     width: 17%;
-    height: 50%;
+    height: 0px;
     background-color: var(--quoteBackground);
     z-index: 99999;
     border-radius: 10px;
-    outline: 2px var(--quoteOutline) solid;
     font-size: 24px;
     color: var(--quoteColour);
-    padding: 1%;
+    padding: 0%;
     overflow-y: auto;
+    transition: height 1.2s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.6s ease;
+    opacity: 0.5;
+    font-size: 55%;
+}
+#descriptions:hover {
+    opacity: 1.0;
 }

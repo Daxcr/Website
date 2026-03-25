@@ -64,6 +64,9 @@
 
         async function animateDescription() {
             if (displayItemDescription != description.innerHTML){
+                description.style.height = "50%";
+                description.style.padding = "1%";
+                description.style.outline = "2px var(--quoteOutline) solid";
                 for (let i = 0; i < 2; i++) {
                     description.innerHTML = `${displayItemDescription.substring(0, dindex)}${random.charAt(Math.floor(Math.random() * random.length))}`;
                     await sleep(10);
