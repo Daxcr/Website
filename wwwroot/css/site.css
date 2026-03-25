@@ -157,6 +157,7 @@ html, body {
     }
     .side-image, #descriptions {
         opacity: 0;
+        pointer-events: none;
     }
 }
 .paragraph {
