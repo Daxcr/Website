@@ -171,6 +171,9 @@ html, body {
         opacity: 0 !important;
         pointer-events: none;
     }
+    #splash {
+        width: 600px !important;
+    }
 }
 .paragraph {
     font-size: 18px;
@@ -198,6 +201,7 @@ a {
     color: var(--splashColour);
     text-shadow: 0 0 20px var(--titleShadow);
     z-index: 10000;
+    width: 30vw;
 }
 .settings {
     position: fixed;
