@@ -109,7 +109,7 @@ html, body {
     border-radius: 12px;
     outline: var(--itemShineOutline) 5px solid;
 }
-.icon {
+.icon, .centerButton {
     position: absolute;
     left: 0;
     top: 0;
@@ -125,10 +125,15 @@ html, body {
     pointer-events: none;
 
     animation: fadeIn 2s ease;
-    transition: transform 2s ease;
+    transform: scale(var(--iconScale));
 }
 .icon.fade-out {
+    transition: transform 2s ease;
     transform: translateY(120vh);
+}
+.centerButton.fade-out {
+    transition: transform 2s ease;
+    transform: translateY(120vh) scale(var(--iconScale));
 }
 .icon img {
     transform: scale(var(--iconScale));

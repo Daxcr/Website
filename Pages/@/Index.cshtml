@@ -14,7 +14,7 @@
     </head>
     <body>
         <div id="title"></div>
-        <div class="icon">
+        <div class="centerButton">
             <div class="nav-item">
                 <a href="../home" class="nav-link">
                     <div class="nav-image">
@@ -53,14 +53,14 @@
 
             e.preventDefault();
             document.getElementById("schmove").classList.add("fade-out");
-            document.getElementsByClassName("icon")[0].classList.add("fade-out");
+            document.getElementsByClassName("centerButton")[0].classList.add("fade-out");
             setTimeout(() => {
                 window.location = link.href;
                 }, 2000);
             });
             window.addEventListener("pageshow", event => {
             document.getElementById("schmove").classList.remove("fade-out");
-            document.getElementsByClassName("icon")[0].classList.remove("fade-out");
+            document.getElementsByClassName("centerButton")[0].classList.remove("fade-out");
         });
     </script>
     <script>
@@ -182,7 +182,7 @@
         }
         let objects = []
         let container = document.getElementById("navigation");
-        let icon = document.querySelector(".icon .nav-item");
+        let icon = document.querySelector(".centerButton .nav-item");
         let descriptionBox = document.getElementById("descriptions");
         let currentItemDescription = "";
 
@@ -254,15 +254,15 @@
         }
 
         function loop(timestamp) {
-            if (document.documentElement.clientHeight < 900 && document.documentElement.clientHeight < document.documentElement.clientWidth){
+            if (document.documentElement.clientHeight < 1000 && document.documentElement.clientHeight < document.documentElement.clientWidth){
                 if (document.documentElement.clientHeight < 700){
                     scale = 0.55;
-                    document.documentElement.style.setProperty("--iconScale", "0.38");
+                    document.documentElement.style.setProperty("--iconScale", "0.55");
                     minRadius = 190;
                 } else {
-                    scale = 0.8;
-                    document.documentElement.style.setProperty("--iconScale", "0.75");
-                    minRadius = 200;
+                    scale = 0.7;
+                    document.documentElement.style.setProperty("--iconScale", "0.7");
+                    minRadius = 230;
                 }
             } else {
                 scale = 1;
