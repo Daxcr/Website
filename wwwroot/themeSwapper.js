@@ -227,6 +227,25 @@ const themes = {
         "--quoteOutline": "#000000",
         "--quoteColour": "#ee9494"
     },
+    "gloop": {
+        "--bgColour": "#1b0422",
+        "--bgStrength": "0.12",
+        "--textColour": "#65c92b",
+        "--subtextColour": "#d4ff9c",
+        "--splashColour": "#d4ff9c",
+        "--headingColour": "#a2f37d",
+        "--itemColour": "#13071b",
+        "--itemShineColour": "#66d462",
+        "--itemOutline": "#1b754b",
+        "--itemShineOutline": "#125a4b",
+        "--iconImageBrightness": 1.0,
+        "--titleShadow": "#000000",
+        "--contentShadow": "#00000083",
+        "--crosshatchStrength": "0.2",
+        "--quoteBackground": "#0000004c",
+        "--quoteOutline": "#000000",
+        "--quoteColour": "#d3ee94"
+    },
     "highcontrast": {
         "--bgColour": "#000000",
         "--bgStrength": "0",
