@@ -218,7 +218,7 @@
                         event.preventDefault();
                         window.open(this.location, "_top", "noreferrer");
                     });
-                    
+
                     a.className = "nav-link";
 
                     img.appendChild(icon);
@@ -251,7 +251,7 @@
         }
 
         function loop(timestamp) {
-            if (document.documentElement.clientHeight < 1000 && document.documentElement.clientHeight < document.documentElement.clientWidth){
+            if (document.documentElement.clientHeight < 950 && document.documentElement.clientHeight < document.documentElement.clientWidth){
                 if (document.documentElement.clientHeight < 700){
                     scale = 0.55;
                     document.documentElement.style.setProperty("--iconScale", "0.55");
