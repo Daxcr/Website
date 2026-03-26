@@ -38,6 +38,10 @@ html, body {
     from { transform: translateY(-120vh); }
     to { transform: translateY(0); }
 }
+@keyframes fadeInIcon {
+    from { transform: translateY(-120vh) scale(var(--iconScale)); }
+    to { transform: translateY(0) scale(var(--iconScale)); }
+}
 #schmove {
     animation: fadeIn 2s ease;
     transition: transform 2s ease;
@@ -124,12 +128,12 @@ html, body {
 
     pointer-events: none;
 
-    animation: fadeIn 2s ease;
+    animation: fadeInIcon 2s ease;
     transform: scale(var(--iconScale));
 }
 .icon.fade-out {
     transition: transform 2s ease;
-    transform: translateY(120vh);
+    transform: translateY(120vh) scale(calc(var(--iconScale) / 3));
 }
 .centerButton.fade-out {
     transition: transform 2s ease;
