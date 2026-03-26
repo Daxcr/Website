@@ -65,7 +65,7 @@ html, body {
     transform: scale(var(--navitemScaling)) !important;
     z-index: 999;
 }
-.centerButton .nav-item:hover {
+.nav-item:not(#navigation .nav-item):hover {
     transform: scale(1.3) !important;
     z-index: 999;
 }
@@ -184,7 +184,7 @@ html, body {
     }
 }
 .paragraph {
-    font-size: 18px;
+    font-size: 16px;
     color: var(--subtextColour);
     max-width: min(800px, 65%);
 }
