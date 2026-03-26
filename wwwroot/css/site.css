@@ -55,6 +55,7 @@ html, body {
     transition: transform 0.3s ease, filter 0.3s ease;
     pointer-events: all;
     z-index: 2;
+    text-align: center;
 }
 .nav-item:hover {
     transform: scale(var(--navitemScaling)) !important;
@@ -199,7 +200,7 @@ a {
     left: 50%;
     width: min(500px, 95%);;
     height: min(700px, 70%);
-    padding: 35px;
+    padding: 15px;
     background-color: #1c1c1caa;
     border-radius: 10px;
     outline: #8d8d8d 2px solid;
@@ -211,7 +212,7 @@ a {
     position: fixed;
     bottom: 50px;
     right: 140px;
-    width: 450px;
+    width: 400px;
     height: min(720px, 70%);
     padding: 35px;
     background-color: #1c1c1caa;
@@ -220,7 +221,7 @@ a {
     backdrop-filter: blur(60px);
 }
 #themeSwitcher {
-    font-size: 24px;
+    font-size: 20px;
     color: #ffffff;
     z-index: 10000;
     background-color: #2a2a2a;
@@ -231,7 +232,7 @@ a {
     width: 200px;
 }
 label[for="themeSwitcher"] {
-    font-size: 24px;
+    font-size: 18px;
     color: #c0c0c0;
     z-index: 10000;
 }
@@ -239,11 +240,11 @@ label[for="themeSwitcher"] {
     z-index: 10000;
     border-radius: 8px;
     cursor: pointer;
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
 }
 label[for="useSound"] {
-    font-size: 24px;
+    font-size: 18px;
     color: #c0c0c0;
     z-index: 10000;
 }
@@ -252,11 +253,11 @@ label[for="useSound"] {
     border-radius: 8px;
     cursor: pointer;
     width: 150px;
-    height: 32px;
-    font-size: 24px;
+    height: 24px;
+    font-size: 18px;
 }
 label[for="chatUsername"], label[for="adminPasscode"] {
-    font-size: 24px;
+    font-size: 18px;
     color: #c0c0c0;
     z-index: 10000;
 }
