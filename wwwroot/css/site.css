@@ -367,3 +367,8 @@ body::before {
     position: absolute;
     transform: rotate(var(--iconRingAngle)) scaleY(0.3) scale(var(--iconRingScale)) !important;
 }
+
+::selection {
+    color: var(--bgColour);
+    background-color: var(--textColour);
+}
