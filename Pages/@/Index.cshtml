@@ -254,7 +254,8 @@
         }
 
         function loop(timestamp) {
-            if (document.documentElement.clientHeight < 700){
+            if (document.documentElement.clientHeight < 900 && document.documentElement.clientHeight < document.documentElement.clientWidth){
+                if (document.documentElement.clientHeight < 700){
                     scale = 0.55;
                     document.documentElement.style.setProperty("--iconScale", "0.38");
                     minRadius = 190;
