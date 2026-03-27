@@ -1,4 +1,4 @@
-const rows = 50, columns = 50, mines = 185;
+const rows = 50, columns = 50, mines = 240;
 const board = [];
 const boardObject = document.getElementById("board");
 let scale = 1;
