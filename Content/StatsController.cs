@@ -11,7 +11,7 @@ public class StatsController : ControllerBase
     string getUptime()
     {
         TimeSpan distance = DateTime.UtcNow - tracker.serverStart;
-        return $"{distance.Hours}h {distance.Minutes}m {distance.Seconds}s";
+        return $"{(int)distance.TotalHours}h {distance.Minutes}m {distance.Seconds}s";
     }
 
     [HttpGet("api/stats")]
