@@ -93,7 +93,7 @@
             let div = document.createElement("div");
 
             a.href = `https://cdn.dax.cr/celeste/archive/${name.replaceAll(" ", "").replaceAll("'", "").replaceAll("⭐", "")}.zip`;
-            div.innerHTML = `<table><tr><td><img src="https://cdn.dax.cr/celeste/archive/${name.replaceAll(" ", "").replaceAll("'", "").replaceAll("⭐", "")}.jpg"></td><td>${name}<p style="font-size: 0.4rem;">${description}</p></td></tr></table>`
+            div.innerHTML = `<table><tr><td><img src="https://cdn.dax.cr/celeste/archive/${name.replaceAll(" ", "").replaceAll("'", "").replaceAll("⭐", "")}.jpg"></td><td><p style="font-size: 0.65rem;">${name}</p><p style="font-size: 0.4rem;">${description}</p></td></tr></table>`
             div.classList.add("archivePanel");
             a.appendChild(div);
             content.appendChild(a);
