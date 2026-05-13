@@ -372,3 +372,7 @@ body::before {
     color: var(--bgColour);
     background-color: var(--textColour);
 }
+.lowres {
+    filter: blur(3px);
+    font-size: 1.5em;
+}
